@@ -23,7 +23,7 @@
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "raa_core.mixins.json"
   ],
 
   "depends": {

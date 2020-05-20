@@ -22,7 +22,13 @@ public class RAACore implements ModInitializer {
     @Override
     public void onInitialize() {
         log(Level.INFO, String.format("Initializing %s v%s", MOD_NAME, MOD_VERSION));
-        FabricLoader.getInstance().getEntrypoints("raa:addon", RAAAddon.class).forEach(raaAddon -> RAA_ADDON_LIST.put(raaAddon.getId(), raaAddon));
+        log(Level.INFO, "RAA Addon discovery: Starting");
+        FabricLoader.getInstance().getEntrypoints("raa:addon", RAAAddon.class).forEach(raaAddon -> {
+            RAA_ADDON_LIST.put(raaAddon.getId(), raaAddon);
+            log(Level.INFO, String.format("Discovered addon : %s", raaAddon.getId()));
+        });
+        log(Level.INFO, "RAA Addon discovery: Done");
+        log(Level.INFO, "RAA Addon discovered: " + RAA_ADDON_LIST.size());
 
         Map<String, RAAAddon> loadOrder = new HashMap<>();
 
