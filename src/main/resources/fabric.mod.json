@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "raa_core",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "RAA: Core",
+  "description": "This is the core mod for all RAA mods. It's required for all of them",
   "authors": [
-    "Me!"
+    "Vampire Studios"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://vampirestudios.netlify.com/",
+    "sources": "https://github.com/vampire-studios/Randomly-Adding-Anything-Core"
   },
 
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "license": "MIT",
+  "icon": "assets/raa_core/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "io.github.vampirestudios.raa_core.RAACore"
     ]
   },
   "mixins": [
@@ -28,10 +28,6 @@
 
   "depends": {
     "fabricloader": ">=0.7.4",
-    "fabric": "*",
-    "minecraft": "1.15.x"
-  },
-  "suggests": {
-    "flamingo": "*"
+    "fabric": "*"
   }
 }
