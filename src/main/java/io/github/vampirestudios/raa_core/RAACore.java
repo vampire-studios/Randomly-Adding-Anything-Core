@@ -22,17 +22,14 @@ public class RAACore implements ModInitializer {
     @Override
     public void onInitialize() {
         log(Level.INFO, String.format("Initializing %s v%s", MOD_NAME, MOD_VERSION));
-        FabricLoader.getInstance().getEntrypoints("raa:addon", RAAAddon.class).forEach(raaAddon -> {
-            RAA_ADDON_LIST.put(raaAddon.getId(), raaAddon);
-        });
+        FabricLoader.getInstance().getEntrypoints("raa:addon", RAAAddon.class).forEach(raaAddon -> RAA_ADDON_LIST.put(raaAddon.getId(), raaAddon));
 
         Map<String, RAAAddon> loadOrder = new HashMap<>();
 
         Map<String, RAAAddon> remainingWithDependency = new HashMap<>();
 
         for (Map.Entry<String, RAAAddon> addonEntry : RAA_ADDON_LIST.entrySet()) {
-            List<String> shouldLoadAfterList = new ArrayList<>();
-            shouldLoadAfterList.addAll(Arrays.asList(addonEntry.getValue().shouldLoadAfter()));
+            List<String> shouldLoadAfterList = new ArrayList<>(Arrays.asList(addonEntry.getValue().shouldLoadAfter()));
             if (shouldLoadAfterList.isEmpty()) {
                 loadOrder.put(addonEntry.getKey(), addonEntry.getValue());
                 continue;
@@ -43,9 +40,14 @@ public class RAACore implements ModInitializer {
                 booleans.add(false);
             }
 
+            addonEntry.getValue().onInitialize();
+
             boolean theBoolean = true;
             for (boolean bol : booleans) {
-                if (!bol) theBoolean = false;
+                if (!bol) {
+                    theBoolean = false;
+                    break;
+                }
             }
 
             if (theBoolean) {
@@ -55,10 +57,9 @@ public class RAACore implements ModInitializer {
             remainingWithDependency.put(addonEntry.getKey(), addonEntry.getValue());
         }
 
-        for (;!remainingWithDependency.isEmpty();) {
+        while (!remainingWithDependency.isEmpty()) {
             for (Map.Entry<String, RAAAddon> addonEntry : remainingWithDependency.entrySet()) {
-                List<String> shouldLoadAfterList = new ArrayList<>();
-                shouldLoadAfterList.addAll(Arrays.asList(addonEntry.getValue().shouldLoadAfter()));
+                List<String> shouldLoadAfterList = new ArrayList<>(Arrays.asList(addonEntry.getValue().shouldLoadAfter()));
 
                 List<Boolean> booleans = new ArrayList<>();
                 for (String addonId : shouldLoadAfterList) {
@@ -68,13 +69,15 @@ public class RAACore implements ModInitializer {
 
                 boolean theBoolean = true;
                 for (boolean bol : booleans) {
-                    if (!bol) theBoolean = false;
+                    if (!bol) {
+                        theBoolean = false;
+                        break;
+                    }
                 }
 
                 if (theBoolean) {
                     loadOrder.put(addonEntry.getKey(), addonEntry.getValue());
                     remainingWithDependency.remove(addonEntry.getKey(), addonEntry.getValue());
-                    continue;
                 }
             }
 

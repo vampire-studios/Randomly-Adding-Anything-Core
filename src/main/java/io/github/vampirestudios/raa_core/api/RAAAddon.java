@@ -6,4 +6,6 @@ public interface RAAAddon {
 
     String getId();
 
+    void onInitialize();
+
 }
