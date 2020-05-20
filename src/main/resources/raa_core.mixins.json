@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "io.github.vampirestudios.raa_core",
+  "package": "io.github.vampirestudios.raa_core.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
