@@ -46,8 +46,6 @@ public class RAACore implements ModInitializer {
                 booleans.add(false);
             }
 
-            addonEntry.getValue().onInitialize();
-
             boolean theBoolean = true;
             for (boolean bol : booleans) {
                 if (!bol) {
@@ -91,6 +89,8 @@ public class RAACore implements ModInitializer {
 
 
         RAA_ADDON_LIST = loadOrder;
+
+        RAA_ADDON_LIST.values().forEach(RAAAddon::onInitialize);
     }
 
     public static void log(Level level, String message){
