@@ -1,4 +1,4 @@
-package io.github.vampirestudios.raa_core.api.namegeneration;
+package io.github.vampirestudios.raa_core.api.name_generation;
 
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
