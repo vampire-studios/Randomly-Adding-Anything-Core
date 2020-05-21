@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "io.github.vampirestudios.raa_core.RAACore"
+    ],
+    "client": [
+      "io.github.vampirestudios.raa_core.RAACoreClient"
     ]
   },
   "mixins": [
