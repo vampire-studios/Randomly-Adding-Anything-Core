@@ -30,6 +30,9 @@ dependencies {
 	modImplementation "com.github.vampire-studios:VampireLib-Fabric:${project.vampirelib_version}"
 	include "com.github.vampire-studios:VampireLib-Fabric:${project.vampirelib_version}"
 
+	modImplementation "com.github.oliviathevampire:artifice:55ee991d3b"
+	include "com.github.oliviathevampire:artifice:55ee991d3b"
+
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 }
