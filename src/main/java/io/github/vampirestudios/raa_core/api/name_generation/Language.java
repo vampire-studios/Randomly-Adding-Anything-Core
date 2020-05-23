@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Language {
-    public static final SimpleRegistry<Language> LANGUAGE_REGISTRY = new SimpleRegistry<>(RegistryKey.getOrCreateRootKey(new Identifier(RAACore.MOD_ID, "language")), Lifecycle.stable());
-    public static final SimpleRegistry<String> NAME_GENERATOR_TYPE_REGISTRY = new SimpleRegistry<>(RegistryKey.getOrCreateRootKey(new Identifier(RAACore.MOD_ID, "name_generator_type")), Lifecycle.stable());
+    public static final SimpleRegistry<Language> LANGUAGE_REGISTRY = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier(RAACore.MOD_ID, "language")), Lifecycle.stable());
+    public static final SimpleRegistry<String> NAME_GENERATOR_TYPE_REGISTRY = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier(RAACore.MOD_ID, "name_generator_type")), Lifecycle.stable());
 
     public static final Language ENGLISH_US;
 

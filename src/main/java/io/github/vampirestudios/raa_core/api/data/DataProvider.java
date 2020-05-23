@@ -9,7 +9,7 @@ import net.minecraft.util.registry.SimpleRegistry;
 
 public interface DataProvider {
 
-    SimpleRegistry<DataProvider> DATA_PROVIDER_REGISTRY = new SimpleRegistry<>(RegistryKey.getOrCreateRootKey(new Identifier(RAACore.MOD_ID, "data_provider")), Lifecycle.stable());
+    SimpleRegistry<DataProvider> DATA_PROVIDER_REGISTRY = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier(RAACore.MOD_ID, "data_provider")), Lifecycle.stable());
 
     Identifier getId();
 

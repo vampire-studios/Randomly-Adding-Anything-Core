@@ -9,7 +9,7 @@ import net.minecraft.util.registry.SimpleRegistry;
 
 public interface TextureProvider {
 
-    SimpleRegistry<TextureProvider> TEXTURE_PROVIDER_REGISTRY = new SimpleRegistry<>(RegistryKey.getOrCreateRootKey(new Identifier(RAACore.MOD_ID, "texture_provider")), Lifecycle.stable());
+    SimpleRegistry<TextureProvider> TEXTURE_PROVIDER_REGISTRY = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier(RAACore.MOD_ID, "texture_provider")), Lifecycle.stable());
 
     Identifier getId();
 
