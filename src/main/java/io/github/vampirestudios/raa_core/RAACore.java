@@ -1,6 +1,8 @@
 package io.github.vampirestudios.raa_core;
 
 import io.github.vampirestudios.raa_core.api.RAAAddon;
+import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
+import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
@@ -19,9 +21,15 @@ public class RAACore implements ModInitializer {
 
     public static Map<String, RAAAddon> RAA_ADDON_LIST = new HashMap<>();
 
+    public static RAACoreConfig CONFIG;
+
     @Override
     public void onInitialize() {
         log(Level.INFO, String.format("Initializing %s v%s", MOD_NAME, MOD_VERSION));
+        
+        AutoConfig.register(RAACoreConfig.class, GsonConfigSerializer::new);
+        CONFIG = AutoConfig.getConfigHolder(RAACoreConfig.class).getConfig();
+
         log(Level.INFO, "RAA Addon discovery: Starting");
         FabricLoader.getInstance().getEntrypoints("raa:addon", RAAAddon.class).forEach(raaAddon -> {
             RAA_ADDON_LIST.put(raaAddon.getId(), raaAddon);

@@ -12,9 +12,12 @@ import java.util.Map;
 
 public class Language {
     public static final SimpleRegistry<Language> LANGUAGE_REGISTRY = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier(RAACore.MOD_ID, "language")), Lifecycle.stable());
-    public static final SimpleRegistry<String> NAME_GENERATOR_TYPE_REGISTRY = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier(RAACore.MOD_ID, "name_generator_type")), Lifecycle.stable());
 
-    public static final Language ENGLISH_US;
+    public static final Language ENGLISH;
+    public static final Language FRENCH;
+    public static final Language CHINESE;
+    public static final Language SPANISH;
+    public static final Language NORWEGIAN_BO;
 
     private Map<String, NameGenerator> nameGeneratorMap;
     private String id;
@@ -39,10 +42,14 @@ public class Language {
 
     public NameGenerator getNameGenerator(String type) {
         if (this.hasNameGeneratorType(type)) return this.nameGeneratorMap.get(type);
-        else return ENGLISH_US.getNameGenerator(type);
+        else return ENGLISH.getNameGenerator(type);
     }
 
     static {
-        ENGLISH_US = Registry.register(LANGUAGE_REGISTRY, new Identifier("en_us"), new Language("en_us"));
+        ENGLISH = Registry.register(LANGUAGE_REGISTRY, new Identifier("en"), new Language("en"));
+        FRENCH = Registry.register(LANGUAGE_REGISTRY, new Identifier("fr"), new Language("fr"));
+        CHINESE = Registry.register(LANGUAGE_REGISTRY, new Identifier("zh"), new Language("zh"));
+        SPANISH = Registry.register(LANGUAGE_REGISTRY, new Identifier("es"), new Language("es"));
+        NORWEGIAN_BO = Registry.register(LANGUAGE_REGISTRY, new Identifier("no_bo"), new Language("no_bo"));
     }
 }
