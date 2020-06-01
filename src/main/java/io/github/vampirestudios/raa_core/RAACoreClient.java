@@ -4,6 +4,8 @@ import io.github.vampirestudios.raa_core.api.client.RAAAddonClient;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
@@ -12,6 +14,7 @@ import static io.github.vampirestudios.raa_core.RAACore.MOD_VERSION;
 
 public class RAACoreClient implements ClientModInitializer {
 
+    public static Logger LOGGER = LogManager.getLogger();
 
     public static Map<String, RAAAddonClient> RAA_ADDON_CLIENT_LIST = new HashMap<>();
 
@@ -90,6 +93,6 @@ public class RAACoreClient implements ClientModInitializer {
     }
 
     public static void log(Level level, String message){
-        RAACore.LOGGER.log(level, "["+ MOD_NAME+" Client] " + message);
+        LOGGER.log(level, message);
     }
 }
