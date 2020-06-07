@@ -17,4 +17,7 @@ public interface DataProvider {
 
     <T> void generateJSONs(T object, ArtificeResourcePack.ServerResourcePackBuilder serverResourcePackBuilder);
 
+    default Identifier makeId(String path) {
+        return new Identifier(this.getAddonId(), path);
+    }
 }

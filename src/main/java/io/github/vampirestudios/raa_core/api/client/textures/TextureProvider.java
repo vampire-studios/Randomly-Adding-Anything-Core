@@ -17,4 +17,8 @@ public interface TextureProvider {
 
     <T> void generateJSONs(T object, ArtificeResourcePack.ClientResourcePackBuilder clientResourcePackBuilder);
 
+    default Identifier makeId(String path) {
+        return new Identifier(this.getAddonId(), path);
+    }
+
 }

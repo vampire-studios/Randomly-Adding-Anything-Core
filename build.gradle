@@ -1,7 +1,7 @@
 plugins {
 	id 'fabric-loom' version '0.2.7-SNAPSHOT'
 	id 'maven-publish'
-	id("com.jfrog.bintray")
+	id 'com.jfrog.bintray' version '1.8.4'
 }
 
 repositories {
@@ -101,7 +101,7 @@ bintray {
 	publications = ["MavenPublication"]
 	publish = true //[Default: false] Whether version should be auto published after an upload
 	pkg {
-		repo = "libs"
+		repo = "Randomly-Adding-Anything"
 		name = archivesBaseName
 		desc = "The base module and API of Randomly Adding Anything"
 		websiteUrl = "https://github.com/vampire-studios/Randomly-Adding-Anything-Core"
