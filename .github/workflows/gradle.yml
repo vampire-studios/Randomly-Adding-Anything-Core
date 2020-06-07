@@ -14,7 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         minecraftVersion:
-          - 1.16-pr2
           - latest
     steps:
       - uses: actions/checkout@v2
