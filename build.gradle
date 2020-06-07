@@ -102,7 +102,7 @@ bintray {
 	publish = true //[Default: false] Whether version should be auto published after an upload
 	pkg {
 		userOrg = "vampirestudios"
-		repo = "Randomly-Adding-Anything"
+		repo = "Minecraft-Libs"
 		name = archivesBaseName
 		desc = "The base module and API of Randomly Adding Anything"
 		websiteUrl = "https://github.com/vampire-studios/Randomly-Adding-Anything-Core"
