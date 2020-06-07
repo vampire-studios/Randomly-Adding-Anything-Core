@@ -101,6 +101,7 @@ bintray {
 	publications = ["MavenPublication"]
 	publish = true //[Default: false] Whether version should be auto published after an upload
 	pkg {
+		userOrg = "vampirestudios"
 		repo = "Randomly-Adding-Anything"
 		name = archivesBaseName
 		desc = "The base module and API of Randomly Adding Anything"
