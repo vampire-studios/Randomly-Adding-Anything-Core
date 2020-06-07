@@ -1,9 +1,7 @@
 plugins {
 	id 'fabric-loom' version '0.2.7-SNAPSHOT'
 	id 'maven-publish'
-	id("maven")
-	id("signing")
-	id("com.jfrog.bintray") version("1.8.4")
+	id("com.jfrog.bintray")
 }
 
 repositories {
@@ -19,7 +17,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version + "-" + project.minecraft_version
+version = project.mod_version
 group = project.maven_group
 
 dependencies {
@@ -73,16 +71,74 @@ jar {
 	from "LICENSE"
 }
 
+def pomConfig = {
+	licenses {
+		license {
+			name "MIT"
+		}
+	}
+	developers {
+		developer {
+			id "oliviathevampire"
+			name "OliviaTheVampire"
+			email ""
+		}
+		developer {
+			id "catcore"
+			name "Arthur Roussel"
+			email "arthur.bambou@gmail.com"
+		}
+	}
+
+	scm {
+		url "https://github.com/vampire-studios/Randomly-Adding-Anything-Core"
+	}
+}
+
+bintray {
+	user = project.hasProperty('bintray_user') ? project.property('bintray_user') : System.getenv('BINTRAY_USER')
+	key = project.hasProperty('bintray_api_key') ? project.property('bintray_api_key') : System.getenv('BINTRAY_KEY')
+	publications = ["MavenPublication"]
+	publish = true //[Default: false] Whether version should be auto published after an upload
+	pkg {
+		repo = "libs"
+		name = archivesBaseName
+		desc = "The base module and API of Randomly Adding Anything"
+		websiteUrl = "https://github.com/vampire-studios/Randomly-Adding-Anything-Core"
+		issueTrackerUrl = "https://github.com/vampire-studios/Randomly-Adding-Anything-Core/issues"
+//		githubReleaseNotesFile = 'README.md' //Optional Github readme file
+		licenses = ["MIT"]
+		githubRepo = "vampire-studios/Randomly-Adding-Anything-Core"
+		vcsUrl = "https://github.com/vampire-studios/Randomly-Adding-Anything-Core.git"
+		version {
+			name = version
+			released = new Date()
+		}
+	}
+
+}
+
 // configure the maven publication
 publishing {
 	publications {
-		mavenJava(MavenPublication) {
+		MavenPublication(MavenPublication) {
 			// add all the jars that should be included when publishing to maven
 			artifact(remapJar) {
 				builtBy remapJar
 			}
 			artifact(sourcesJar) {
+				classifier = "sources"
 				builtBy remapSourcesJar
+			}
+			groupId group
+			artifactId archivesBaseName
+			version version
+			pom.withXml {
+				def root = asNode()
+				root.appendNode('description', "The base module and API of Randomly Adding Anything")
+				root.appendNode('name', archivesBaseName)
+				root.appendNode('url', "https://github.com/vampire-studios/Randomly-Adding-Anything-Core")
+				root.children().last() + pomConfig
 			}
 		}
 	}
@@ -93,3 +149,6 @@ publishing {
 		// mavenLocal()
 	}
 }
+
+bintrayUpload.dependsOn build
+bintrayUpload.dependsOn generatePomFileForMavenPublicationPublication
