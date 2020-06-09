@@ -1,17 +1,15 @@
 package io.github.vampirestudios.raa_core.api.name_generation;
 
-import com.mojang.serialization.Lifecycle;
 import io.github.vampirestudios.raa_core.RAACore;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.registry.SimpleRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Language {
-    public static final SimpleRegistry<Language> LANGUAGE_REGISTRY = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier(RAACore.MOD_ID, "language")), Lifecycle.stable());
+    public static final SimpleRegistry<Language> LANGUAGE_REGISTRY = Registry.register(Registry.REGISTRIES, new Identifier(RAACore.MOD_ID, "language"),new SimpleRegistry<Language>());
 
     public static final Language ENGLISH;
     public static final Language FRENCH;

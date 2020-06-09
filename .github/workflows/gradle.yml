@@ -2,9 +2,9 @@ name: Fabric CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ 1.15 ]
   pull_request:
-    branches: [ master ]
+    branches: [ 1.15 ]
 
 jobs:
   buildAndRunForSomeVersions:
@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         minecraftVersion:
-          - latest
+          - 1.15.2
     steps:
       - uses: actions/checkout@v2
         with:
