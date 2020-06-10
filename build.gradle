@@ -33,11 +33,11 @@ dependencies {
 	modImplementation "com.github.vampire-studios:VampireLib-Fabric:${project.vampirelib_version}"
 	include "com.github.vampire-studios:VampireLib-Fabric:${project.vampirelib_version}"
 
-//	modImplementation "com.lettuce.fudge:artifice:${project.artifice_version}"
-//	include "com.lettuce.fudge:artifice:${project.artifice_version}"
+	modImplementation "com.lettuce.fudge:artifice:${project.artifice_version}"
+	include "com.lettuce.fudge:artifice:${project.artifice_version}"
 
-	modImplementation "com.github.arthurbambou:artifice:${project.artifice_version}"
-	include "com.github.arthurbambou:artifice:${project.artifice_version}"
+//	modImplementation "com.github.arthurbambou:artifice:${project.artifice_version}"
+//	include "com.github.arthurbambou:artifice:${project.artifice_version}"
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
