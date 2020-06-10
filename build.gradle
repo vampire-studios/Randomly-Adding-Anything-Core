@@ -18,7 +18,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version
+version = project.mod_version + "+" + project.minecraft_version
 group = project.maven_group
 
 dependencies {
@@ -166,7 +166,7 @@ curseforge {
 		gameVersionStrings.add("1.16-Snapshot")
 		gameVersionStrings.add("Fabric")
 		mainArtifact(file("build/libs/${archivesBaseName}-${version}.jar")) {
-			displayName = "[" + minecraft_version + "] Core " + version
+			displayName = "[" + project.minecraft_version + "] Core " + project.mod_version
 			relations {
 				requiredDependency "fabric-api"
 				embeddedLibrary "vampirelib"
