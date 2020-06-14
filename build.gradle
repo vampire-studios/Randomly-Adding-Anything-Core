@@ -2,6 +2,7 @@ plugins {
 	id 'fabric-loom' version '0.4-SNAPSHOT'
 	id 'maven-publish'
 	id 'com.jfrog.bintray' version '1.8.4'
+	id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
 repositories {
@@ -34,6 +35,9 @@ dependencies {
 
 	modImplementation "com.lettuce.fudge:artifice:${project.artifice_version}"
 	include "com.lettuce.fudge:artifice:${project.artifice_version}"
+
+//	modImplementation "com.github.arthurbambou:artifice:${project.artifice_version}"
+//	include "com.github.arthurbambou:artifice:${project.artifice_version}"
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
@@ -148,6 +152,29 @@ publishing {
 	repositories {
 		// uncomment to publish to the local maven
 		// mavenLocal()
+	}
+}
+
+curseforge {
+	apiKey = System.getenv('CURSEKEY') ?: "a key"
+	project {
+		id = "341464"
+		releaseType = "release"
+		changelog = ""
+		gameVersionStrings.clear()
+//		gameVersionStrings.add("1.16")
+		gameVersionStrings.add("1.16-Snapshot")
+		gameVersionStrings.add("Fabric")
+		mainArtifact(file("build/libs/${archivesBaseName}-${version}.jar")) {
+			displayName = "[" + project.minecraft_version + "] Core " + project.mod_version
+			relations {
+				requiredDependency "fabric-api"
+				embeddedLibrary "vampirelib"
+			}
+		}
+	}
+	options{
+		forgeGradleIntegration = false
 	}
 }
 

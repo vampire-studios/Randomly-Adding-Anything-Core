@@ -24,8 +24,8 @@ jobs:
         with:
           minecraftVersion: ${{ matrix.minecraftVersion }}
       - name: Upload to Bintray & CurseForge
-        run: ./gradlew clean bintrayUpload #curseforge
+        run: ./gradlew clean bintrayUpload curseforge
         env:
           BINTRAY_USER: catcore
           BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-#         CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          CURSEKEY: ${{ secrets.CURSEKEY }}
