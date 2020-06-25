@@ -160,9 +160,9 @@ curseforge {
 	project {
 		id = "341464"
 		releaseType = "release"
-		changelog = ""
+		changelog = project.changelog
 		gameVersionStrings.clear()
-//		gameVersionStrings.add("1.16")
+		gameVersionStrings.add("1.16")
 		gameVersionStrings.add("1.16-Snapshot")
 		gameVersionStrings.add("Fabric")
 		mainArtifact(file("build/libs/${archivesBaseName}-${version}.jar")) {

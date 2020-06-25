@@ -1,15 +1,14 @@
-name: Fabric CI
+name: On Push
 
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
-  buildAndRunForSomeVersions:
+  build_run_publish:
     name: Run tests for ${{ matrix.minecraftVersion }}
     runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, '[release]')"
     strategy:
       fail-fast: false
       matrix:
