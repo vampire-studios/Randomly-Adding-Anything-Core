@@ -22,7 +22,7 @@ jobs:
         id: testRunner
         with:
           minecraftVersion: ${{ matrix.minecraftVersion }}
-      - name: Upload to Bintray & CurseForge
+      - name: Upload to Bintray and CurseForge
         run: ./gradlew clean bintrayUpload curseforge
         env:
           BINTRAY_USER: catcore
