@@ -171,6 +171,7 @@ curseforge {
 			relations {
 				requiredDependency "fabric-api"
 				embeddedLibrary "vampirelib"
+				optionalDependency "modupdater"
 			}
 		}
 	}
