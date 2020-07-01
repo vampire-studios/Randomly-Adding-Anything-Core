@@ -17,8 +17,8 @@ public abstract class MinecraftClientMixin {
 
     @Shadow public abstract void openScreen(Screen screen);
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void openAddonWarningScreen(RunArgs args, CallbackInfo ci) {
+    @Inject(method = "init", at = @At("TAIL"))
+    private void openAddonWarningScreen(CallbackInfo ci) {
         if (RAACore.RAA_ADDON_LIST.size() == 0 && RAACoreClient.RAA_ADDON_CLIENT_LIST.size() == 0) {
             this.openScreen(new RAACoreNoAddonScreen());
         }

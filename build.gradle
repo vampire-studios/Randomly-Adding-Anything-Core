@@ -30,11 +30,15 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation "com.github.vampire-studios:VampireLib-Fabric:${project.vampirelib_version}"
-	include "com.github.vampire-studios:VampireLib-Fabric:${project.vampirelib_version}"
+	modImplementation "com.github.natanfudge:artifice:${project.artifice_version}"
+	include "com.github.natanfudge:artifice:${project.artifice_version}"
 
-	modImplementation "com.lettuce.fudge:artifice:${project.artifice_version}"
-	include "com.lettuce.fudge:artifice:${project.artifice_version}"
+	modCompile("me.sargunvohra.mcmods:autoconfig1u:${project.autoconfig1u}") {
+		exclude module: "fabric-api"
+	}
+	include("me.sargunvohra.mcmods:autoconfig1u:${project.autoconfig1u}") {
+		exclude module: "fabric-api"
+	}
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
