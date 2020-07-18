@@ -1,5 +1,5 @@
 {
-    "dependencies": {
-      "google-spreadsheet": "^3.0.11"
-    }
+  "dependencies": {
+    "google-spreadsheet": "^3.0.11"
   }
+}
