@@ -1,0 +1,16 @@
+name: Merge On Push
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  merge_on_push:
+    name: Merge On Push
+    steps:
+      - uses: actions/checkout@v2
+      - uses: everlytic/branch-merge
+        with:
+          github_token: ${{ github.GIT_TOKEN }}
+          source_ref: ${{ github.ref }}
+          target_branch: 'master-translations'
