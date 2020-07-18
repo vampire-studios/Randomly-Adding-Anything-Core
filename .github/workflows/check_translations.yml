@@ -1,0 +1,28 @@
+name: Check for New Translations
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  check_for_new_translations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Setup Node
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+          check-latest: true
+      - name: Install dependencies
+      - run: npm install
+      - name: Run script
+      - run: node scripts/upgrade_translations.js
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GIT_TOKEN }}
+          branch: 'master-translations'
