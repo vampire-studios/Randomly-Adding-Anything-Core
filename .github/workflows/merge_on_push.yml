@@ -6,6 +6,7 @@ on:
 
 jobs:
   merge_on_push:
+    runs-on: ubuntu-latest
     name: Merge On Push
     steps:
       - uses: actions/checkout@v2
