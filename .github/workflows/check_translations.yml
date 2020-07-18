@@ -18,6 +18,12 @@ jobs:
           node-version: '12'
           check-latest: true
       - run: npm install
+        env:
+          CREDITENTIALS: ${{ secrets.CREDITENTIALS }}
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+          MODID: ${{ secrets.MODID }}
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          SPREADSHEET_NAME: ${{ secrets.SPREADSHEET_NAME }}
       - run: node scripts/upgrade_translations.js
       - uses: ad-m/github-push-action@master
         with:
