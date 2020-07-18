@@ -1,0 +1,34 @@
+name: Check for New Translations
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+      branches: [master-translations]
+
+jobs:
+  check_for_new_translations:
+    runs-on: ubuntu-latest
+    env:
+      CREDITENTIALS: ${{ secrets.CREDITENTIALS }}
+      GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+      MOD_ID: ${{ secrets.MODID }}
+      SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+      SPREADSHEET_NAME: ${{ secrets.SPREADSHEET_NAME }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+          check-latest: true
+      - run: npm install
+      - run: node scripts/upgrade_translations.js
+      - run: |
+          git config --local user.email "arthur.koalas@free.fr"
+          git config --local user.name "CatCore"
+          git commit -m "New Translations!" -a
+      - uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GIT_TOKEN }}
+          branch: 'master-translations'
