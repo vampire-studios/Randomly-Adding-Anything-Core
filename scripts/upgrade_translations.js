@@ -1,4 +1,4 @@
-DEV = "true"
+DEV = "false"
 
 if (process.env.NODE_ENV === "false") {
     DEV = "false"
