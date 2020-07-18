@@ -25,6 +25,10 @@ jobs:
           check-latest: true
       - run: npm install
       - run: node scripts/upgrade_translations.js
+      - run: |
+          git config --local user.email "arthur.koalas@free.fr"
+          git config --local user.name "CatCore"
+          git commit -m "New Translations!" -a
       - uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GIT_TOKEN }}
