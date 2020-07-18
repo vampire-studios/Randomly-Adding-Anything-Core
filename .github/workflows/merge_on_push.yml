@@ -12,6 +12,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: everlytic/branch-merge
         with:
-          github_token: ${{ github.GIT_TOKEN }}
-          source_ref: ${{ github.ref }}
+          github_token: ${{ secrets.GIT_TOKEN }}
+          source_ref: "vampire-studios/Randomly-Adding-Anything-Core/master"
           target_branch: 'master-translations'
