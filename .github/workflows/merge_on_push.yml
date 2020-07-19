@@ -10,7 +10,7 @@ jobs:
     name: Merge On Push
     steps:
       - uses: actions/checkout@v2
-      - uses: everlytic/branch-merge@v1.0.2
+      - uses: everlytic/branch-merge@1.0.2
         with:
           github_token: ${{ secrets.GIT_TOKEN }}
           source_ref: ${{ github.ref }}
