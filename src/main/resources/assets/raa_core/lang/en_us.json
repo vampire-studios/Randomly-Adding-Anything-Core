@@ -1,7 +1,7 @@
 {
     "text.raa_core.no_addon_screen.title": "No RAA Addon Loaded!",
     "text.raa_core.no_addon_screen.message.1": "No RAA Addon has been found!",
-    "text.raa_core.no_addon_screen.message.2": "RAA Core alone doesn't add any content to the game.",
+    "text.raa_core.no_addon_screen.message.2": "RAA-Core alone doesn't add any content to the game.",
     "text.raa_core.no_addon_screen.message.3": "You can find a list of available addons at:",
     "text.raa_core.no_addon_screen.message.open_addon_list": "Open Addon List",
     "text.raa_core.no_addon_screen.message.continue": "Continue",
