@@ -2,7 +2,7 @@ name: Check for New Translations
 
 on:
 #  schedule:
-#    - cron: '0 * * * *'     
+#    - cron: '0 * * * *'
 #      branches: [master-translations]
   push:
     branches: [master-translations]
