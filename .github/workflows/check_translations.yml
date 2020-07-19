@@ -1,11 +1,9 @@
 name: Check for New Translations
 
 on:
-#  schedule:
-#    - cron: '0 * * * *'
-#      branches: [master-translations]
-  push:
-    branches: [master-translations]
+  schedule:
+    - cron: '0 * * * *'
+      branches: [master-translations]
 
 jobs:
   check_for_new_translations:
