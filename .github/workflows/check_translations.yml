@@ -1,9 +1,11 @@
 name: Check for New Translations
 
 on:
-  schedule:
-    - cron: '0 * * * *'
-      branches: [master-translations]
+#  schedule:
+#    - cron: '0 * * * *'
+#      branches: [master-translations]
+  push:
+    branches: [master-translations]
 
 jobs:
   check_for_new_translations:
@@ -27,6 +29,7 @@ jobs:
       - run: |
           git config --local user.email "arthur.koalas@free.fr"
           git config --local user.name "CatCore"
+          git add src/main/resources/assets
           git commit -m "New Translations!" -a
       - uses: ad-m/github-push-action@master
         with:
