@@ -1,6 +1,7 @@
 package io.github.vampirestudios.raa_core.client;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -42,11 +43,11 @@ public class RAACoreNoAddonScreen extends Screen {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
         String string = new TranslatableText("text.raa_core.no_addon_screen.message.1").getString();
-        this.drawCenteredString(matrices, this.textRenderer, string, this.width/2, this.height/2 -20, 0xFFFFFF);
+        drawCenteredString(matrices, this.textRenderer, string, this.width/2, this.height/2 -20, 0xFFFFFF);
         string = new TranslatableText("text.raa_core.no_addon_screen.message.2").getString();
-        this.drawCenteredString(matrices, this.textRenderer, string, this.width/2, this.height/2 - 10, 0xFFFFFF);
+        drawCenteredString(matrices, this.textRenderer, string, this.width/2, this.height/2 - 10, 0xFFFFFF);
         string = new TranslatableText("text.raa_core.no_addon_screen.message.3").getString();
-        this.drawCenteredString(matrices, this.textRenderer, string, this.width/2, this.height/2, 0xFFFFFF);
+        drawCenteredString(matrices, this.textRenderer, string, this.width/2, this.height/2, 0xFFFFFF);
         super.render(matrices, mouseX, mouseY, delta);
     }
 }

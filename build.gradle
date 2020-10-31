@@ -6,12 +6,13 @@ plugins {
 }
 
 repositories {
+	mavenLocal()
+	jcenter()
 	maven { url = "https://jitpack.io"}
 	maven {
 		name = "Cotton"
 		url = "https://server.bbkr.space/artifactory/libs-release"
 	}
-	jcenter()
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -35,7 +36,6 @@ dependencies {
 
 	modImplementation "com.lettuce.fudge:artifice:${project.artifice_version}"
 	include "com.lettuce.fudge:artifice:${project.artifice_version}"
-
 	/*modImplementation "com.github.arthurbambou:artifice:${project.artifice_version}"
 	include "com.github.arthurbambou:artifice:${project.artifice_version}"*/
 
