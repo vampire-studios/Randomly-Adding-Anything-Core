@@ -12,7 +12,6 @@ public class RAACoreConfig implements ConfigData {
     @Comment("The language names are generated in")
     public String namingLanguage = Language.LANGUAGE_REGISTRY.getId(Language.ENGLISH).toString();
 
-
     public Language getLanguage() {
         return Language.LANGUAGE_REGISTRY.get(new Identifier(this.namingLanguage));
     }
