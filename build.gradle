@@ -3,6 +3,7 @@ plugins {
 	id 'maven-publish'
 	id 'com.jfrog.bintray' version '1.8.4'
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
+	id 'io.github.vampirestudios.modrinthmaven' version '0.0.11'
 }
 
 repositories {
@@ -27,8 +28,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation "com.github.vampire-studios:VampireLib-Fabric:${project.vampirelib_version}"
-	include "com.github.vampire-studios:VampireLib-Fabric:${project.vampirelib_version}"
+	modImplementation "modrinth.maven:tyCNRhS8:UjMEn7wu"
+	include "modrinth.maven:tyCNRhS8:UjMEn7wu"
 
 	modApi("me.sargunvohra.mcmods:autoconfig1u:3.3.1") {
 		exclude(group: "net.fabricmc.fabric-api")

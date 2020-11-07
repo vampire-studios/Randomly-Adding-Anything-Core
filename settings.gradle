@@ -6,5 +6,16 @@ pluginManagement {
             url = 'https://maven.fabricmc.net/'
         }
         gradlePluginPortal()
+        maven {
+            name = 'Jitpack'
+            url = 'https://jitpack.io'
+        }
+    }
+    resolutionStrategy {
+        eachPlugin {
+                if (requested.id.id == "io.github.vampirestudios.modrinthmaven" && requested.version?.endsWith("-SNAPSHOT") != true) {
+                        useModule("com.github.vampire-studios.ModrinthMaven:ModrinthMaven:${requested.version}")
+                    }
+            }
     }
 }
