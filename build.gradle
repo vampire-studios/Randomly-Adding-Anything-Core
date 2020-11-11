@@ -3,7 +3,7 @@ plugins {
 	id 'maven-publish'
 	id 'com.jfrog.bintray' version '1.8.4'
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
-	id 'io.github.vampirestudios.modrinthmaven' version '1.0.0'
+	id 'io.github.vampirestudios.modrinthmaven' version '1.0.1'
 }
 
 repositories {
