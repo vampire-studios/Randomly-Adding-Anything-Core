@@ -5,5 +5,7 @@
     "text.raa_core.no_addon_screen.message.3": "Vous pourrez trouver une liste des addons existants ici :",
     "text.raa_core.no_addon_screen.message.open_addon_list": "Ouvrir la liste des addons",
     "text.raa_core.no_addon_screen.message.continue": "Continuer",
-    "text.raa_core.no_addon_screen.message.quit_game": "Quitter le jeu"
+    "text.raa_core.no_addon_screen.message.quit_game": "Quitter le jeu",
+    "raa_core:raa-config": "RAA Config Screen",
+    "raa_core:raa_config/naming_language": "Name Generation Language"
 }
