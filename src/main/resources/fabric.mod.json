@@ -23,9 +23,6 @@
     ],
     "client": [
       "io.github.vampirestudios.raa_core.RAACoreClient"
-    ],
-    "config": [
-      "io.github.vampirestudios.raa_core.RAACoreConfig"
     ]
   },
   "mixins": [

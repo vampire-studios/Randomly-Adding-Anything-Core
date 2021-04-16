@@ -19,8 +19,8 @@ public class Language {
     public static final Language SPANISH;
     public static final Language NORWEGIAN_BO;
 
-    private Map<String, NameGenerator> nameGeneratorMap;
-    private String id;
+    private final Map<String, NameGenerator> nameGeneratorMap;
+    private final String id;
 
     public Language(String id) {
         this.id = id;
