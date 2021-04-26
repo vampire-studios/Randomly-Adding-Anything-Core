@@ -10,7 +10,6 @@ public class RAACoreConfig implements ConfigData {
 
 	public final String language = Language.LANGUAGE_REGISTRY.getId(Language.ENGLISH).toString();
 
-
     public Language getLanguage() {
         return Language.LANGUAGE_REGISTRY.get(Identifier.tryParse(language));
     }
