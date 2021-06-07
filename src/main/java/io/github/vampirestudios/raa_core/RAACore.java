@@ -1,8 +1,8 @@
 package io.github.vampirestudios.raa_core;
 
 import io.github.vampirestudios.raa_core.api.RAAAddon;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
@@ -17,7 +17,7 @@ public class RAACore implements ModInitializer {
 
     public static final String MOD_ID = "raa_core";
     public static final String MOD_NAME = "RAA: Core";
-    public static final String MOD_VERSION = "0.1.0";
+    public static final String MOD_VERSION = "1.1.0";
 
     public static Map<String, RAAAddon> RAA_ADDON_LIST = new HashMap<>();
 
@@ -25,7 +25,7 @@ public class RAACore implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        log(Level.INFO, String.format("Initializing %s v%s", MOD_NAME, MOD_VERSION));
+        log(Level.INFO, String.format("You're now running %s v%s for %s", MOD_NAME, MOD_VERSION, "1.17"));
 
         AutoConfig.register(RAACoreConfig.class, JanksonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(RAACoreConfig.class).getConfig();

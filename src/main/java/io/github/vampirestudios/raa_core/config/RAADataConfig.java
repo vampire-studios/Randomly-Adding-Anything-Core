@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 
 public abstract class RAADataConfig {
     public static final int CURRENT_VERSION = 1;
-    public static final File CONFIG_PATH = new File(FabricLoader.getInstance().getConfigDirectory(), RAACore.MOD_ID);
+    public static final File CONFIG_PATH = new File(FabricLoader.getInstance().getConfigDir().toFile(), RAACore.MOD_ID);
 
     private final File configFile;
 
@@ -35,7 +35,7 @@ public abstract class RAADataConfig {
                     e.printStackTrace();
                 }
             } else {
-                RAACore.LOGGER.warn(jsonElement.toString() + " is not an object. Skipping to next json element.");
+                RAACore.LOGGER.warn(jsonElement + " is not an object. Skipping to next json element.");
             }
         }
     }
@@ -45,18 +45,18 @@ public abstract class RAADataConfig {
             JsonObject json = GsonHelper.getGson().fromJson(new FileReader(configFile), JsonObject.class);
             int version = JsonHelper.getInt(json, "configVersion", -1);
             for (int i = version; i < CURRENT_VERSION; i++) {
-                RAACore.LOGGER.info("Upgrading RAA data file \"" + configFile.toString() + "\" to version " + (i + 1) + ".");
+                RAACore.LOGGER.info("Upgrading RAA data file \"" + configFile + "\" to version " + (i + 1) + ".");
                 json = upgrade(json, i);
             }
             load(json);
-            RAACore.LOGGER.info("Loaded RAA data file \"" + configFile.toString() + "\".");
+            RAACore.LOGGER.info("Loaded RAA data file \"" + configFile + "\".");
             if (version != CURRENT_VERSION) {
                 save();
                 RAACore.LOGGER.info("Saved upgraded RAA file.");
             }
         } catch (Throwable e) {
             e.printStackTrace();
-            RAACore.LOGGER.info("Couldn't load RAA data file \"" + configFile.toString() + "\": " + e.getClass().getCanonicalName() + ". Initiating crash...");
+            RAACore.LOGGER.info("Couldn't load RAA data file \"" + configFile + "\": " + e.getClass().getCanonicalName() + ". Initiating crash...");
             System.exit(1);
         }
     }
@@ -74,7 +74,7 @@ public abstract class RAADataConfig {
             save(fileWriter);
             fileWriter.close();
         } catch (IOException e) {
-            throw new RuntimeException("Couldn't save RAA data file: " + configFile.toString(), e);
+            throw new RuntimeException("Couldn't save RAA data file: " + configFile, e);
         }
     }
 

@@ -1,8 +1,8 @@
 package io.github.vampirestudios.raa_core;
 
 import io.github.vampirestudios.raa_core.api.name_generation.Language;
-import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
 import net.minecraft.util.Identifier;
 
 @Config(name = "raa_config")

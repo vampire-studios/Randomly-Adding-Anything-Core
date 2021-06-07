@@ -1,9 +1,7 @@
 plugins {
-	id 'fabric-loom' version '0.7-SNAPSHOT'
+	id 'fabric-loom' version '0.8-SNAPSHOT'
 	id 'maven-publish'
-	id 'com.jfrog.bintray' version '1.8.4'
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
-	id "io.github.vampirestudios.modrinthmaven" version "1.0.1"
 }
 
 repositories {
@@ -12,13 +10,14 @@ repositories {
 	maven {
 		url "https://hephaestus.dev/release"
 	}
-	maven { url = "http://maven.terraformersmc.com/" }
+	maven { url = "https://maven.terraformersmc.com/" }
 	maven { url = "https://jitpack.io"}
 	maven { url "https://maven.shedaniel.me/" }
+	maven { url "https://raw.githubusercontent.com/vampire-studios/VampireStudiosMaven/main/" }
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version + "+" + project.minecraft_version
@@ -33,29 +32,21 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation ("io.github.vampirestudios:VampireLib-Fabric:2.3.1+build.1-21w07a") {
+	modImplementation("me.shedaniel.cloth:cloth-config-fabric:5.0.34") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	include("me.shedaniel.cloth:cloth-config-fabric:5.0.34") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modImplementation ("io.github.vampirestudios:VampireLib-Fabric:3.0.2+build.3-1.17-pre1") {
 		exclude group: "net.fabricmc.fabric-api"
 		exclude group: "io.github.cottonmc"
 	}
-	include ("io.github.vampirestudios:VampireLib-Fabric:2.3.1+build.1-21w07a") {
+	include ("io.github.vampirestudios:VampireLib-Fabric:3.0.2+build.3-1.17-pre1") {
 		exclude group: "net.fabricmc.fabric-api"
 		exclude group: "io.github.cottonmc"
 	}
-
-	modImplementation ("me.shedaniel.cloth:config-2:${project.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
-	include ("me.shedaniel.cloth:config-2:${project.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
-
-	modImplementation("me.sargunvohra.mcmods:autoconfig1u:${project.autoconfig1u}") {
-		exclude group: "net.fabricmc.fabric-api"
-		force = true
-	}
-	include("me.sargunvohra.mcmods:autoconfig1u:${project.autoconfig1u}") {
-		exclude group: "net.fabricmc.fabric-api"
-		force = true
-	}
-
-	modImplementation "com.lettuce.fudge:artifice:${project.artifice_version}"
-	include "com.lettuce.fudge:artifice:${project.artifice_version}"
 
 	modCompileOnly("com.terraformersmc:modmenu:${project.modmenu_version}") {
 		transitive(false)
@@ -68,102 +59,42 @@ dependencies {
 processResources {
 	inputs.property "version", project.version
 
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
+	filesMatching("fabric.mod.json") {
 		expand "version": project.version
 	}
-
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
-	}
 }
 
-tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = "UTF-8"
+	it.options.release = 16
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = "sources"
-	from sourceSets.main.allSource
+java {
+	withSourcesJar()
 }
 
 jar {
-	from "LICENSE"
-}
-
-def pomConfig = {
-	licenses {
-		license {
-			name "MIT"
-		}
-	}
-	developers {
-		developer {
-			id "oliviathevampire"
-			name "OliviaTheVampire"
-			email ""
-		}
-		developer {
-			id "catcore"
-			name "Arthur Roussel"
-			email "arthur.bambou@gmail.com"
-		}
-	}
-
-	scm {
-		url "https://github.com/vampire-studios/Randomly-Adding-Anything-Core"
+	from("LICENSE") {
+		rename { "${it}_${project.archivesBaseName}"}
 	}
 }
 
-bintray {
-	user = project.hasProperty('bintray_user') ? project.property('bintray_user') : System.getenv('BINTRAY_USER')
-	key = project.hasProperty('bintray_api_key') ? project.property('bintray_api_key') : System.getenv('BINTRAY_KEY')
-	publications = ["MavenPublication"]
-	publish = true //[Default: false] Whether version should be auto published after an upload
-	pkg {
-		userOrg = "vampirestudios"
-		repo = "Minecraft-Libs"
-		name = archivesBaseName
-		desc = "The base module and API of Randomly Adding Anything"
-		websiteUrl = "https://github.com/vampire-studios/Randomly-Adding-Anything-Core"
-		issueTrackerUrl = "https://github.com/vampire-studios/Randomly-Adding-Anything-Core/issues"
-		licenses = ["MIT"]
-		githubRepo = "vampire-studios/Randomly-Adding-Anything-Core"
-		vcsUrl = "https://github.com/vampire-studios/Randomly-Adding-Anything-Core.git"
-		version {
-			name = version
-			released = new Date()
-		}
-	}
-
-}
-
-// configure the maven publication
 publishing {
 	publications {
-		MavenPublication(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
+		mavenJava(MavenPublication) {
 			artifact(remapJar) {
 				builtBy remapJar
 			}
 			artifact(sourcesJar) {
-				classifier = "sources"
 				builtBy remapSourcesJar
-			}
-			groupId group
-			artifactId archivesBaseName
-			version version
-			pom.withXml {
-				def root = asNode()
-				root.appendNode('description', "The base module and API of Randomly Adding Anything")
-				root.appendNode('name', archivesBaseName)
-				root.appendNode('url', "https://github.com/vampire-studios/Randomly-Adding-Anything-Core")
-				root.children().last() + pomConfig
 			}
 		}
 	}
-
-	repositories {}
+	repositories {
+		maven {
+			url file("D:\\Development\\Work\\VampireStudiosMaven\\")
+		}
+	}
 }
 
 curseforge {
@@ -173,10 +104,10 @@ curseforge {
 		releaseType = "release"
 		changelog = project.changelog
 		gameVersionStrings.clear()
-		gameVersionStrings.add("1.16.3")
+		gameVersionStrings.add("1.17")
 		gameVersionStrings.add("Fabric")
 		mainArtifact(file("build/libs/${archivesBaseName}-${version}.jar")) {
-			displayName = "[" + project.minecraft_version + "] Core " + project.mod_version
+			displayName = "[" + project.minecraft_version + "] RAA Core " + project.mod_version
 			relations {
 				requiredDependency "fabric-api"
 				embeddedLibrary "vampirelib"
@@ -190,6 +121,3 @@ curseforge {
 		forgeGradleIntegration = false
 	}
 }
-
-bintrayUpload.dependsOn build
-bintrayUpload.dependsOn generatePomFileForMavenPublicationPublication

@@ -20,7 +20,7 @@ public class RAACoreClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        log(Level.INFO, String.format("Initializing %s Client v%s", MOD_NAME, MOD_VERSION));
+        log(Level.INFO, String.format("You're now running %s v%s for %s", MOD_NAME, MOD_VERSION, "1.17"));
         log(Level.INFO, "RAA Client Addon discovery: Starting");
         FabricLoader.getInstance().getEntrypoints("raa:addon_client", RAAAddonClient.class).forEach(raaAddon -> {
             RAA_ADDON_CLIENT_LIST.put(raaAddon.getId(), raaAddon);
