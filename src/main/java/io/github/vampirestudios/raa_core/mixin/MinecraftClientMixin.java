@@ -15,12 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
 
-    @Shadow public abstract void openScreen(Screen screen);
+    @Shadow public abstract void setScreen(Screen screen);
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void openAddonWarningScreen(RunArgs args, CallbackInfo ci) {
         if (RAACore.RAA_ADDON_LIST.size() == 0 && RAACoreClient.RAA_ADDON_CLIENT_LIST.size() == 0) {
-            this.openScreen(new RAACoreNoAddonScreen());
+            this.setScreen(new RAACoreNoAddonScreen());
         }
     }
 }

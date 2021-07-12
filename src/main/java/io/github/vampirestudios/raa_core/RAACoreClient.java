@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
-import static io.github.vampirestudios.raa_core.RAACore.MOD_NAME;
 import static io.github.vampirestudios.raa_core.RAACore.MOD_VERSION;
 
 public class RAACoreClient implements ClientModInitializer {
@@ -20,7 +19,7 @@ public class RAACoreClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        log(Level.INFO, String.format("You're now running %s v%s for %s", MOD_NAME, MOD_VERSION, "1.17"));
+        log(Level.INFO, String.format("You're now running RAA: Core - Client v%s for 1.17.1", MOD_VERSION));
         log(Level.INFO, "RAA Client Addon discovery: Starting");
         FabricLoader.getInstance().getEntrypoints("raa:addon_client", RAAAddonClient.class).forEach(raaAddon -> {
             RAA_ADDON_CLIENT_LIST.put(raaAddon.getId(), raaAddon);

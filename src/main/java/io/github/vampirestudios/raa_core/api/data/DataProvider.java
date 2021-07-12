@@ -1,15 +1,14 @@
 package io.github.vampirestudios.raa_core.api.data;
 
-import com.mojang.serialization.Lifecycle;
 import com.swordglowsblue.artifice.api.ArtificeResourcePack;
 import io.github.vampirestudios.raa_core.RAACore;
+import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.registry.SimpleRegistry;
 
 public interface DataProvider {
 
-    SimpleRegistry<DataProvider> DATA_PROVIDER_REGISTRY = new SimpleRegistry<>(RegistryKey.ofRegistry(new Identifier(RAACore.MOD_ID, "data_provider")), Lifecycle.stable());
+    SimpleRegistry<DataProvider> DATA_PROVIDER_REGISTRY = FabricRegistryBuilder.createSimple(DataProvider.class, new Identifier(RAACore.MOD_ID, "data_provider")).buildAndRegister();
 
     Identifier getId();
 

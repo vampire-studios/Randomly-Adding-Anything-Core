@@ -17,7 +17,7 @@ public class RAACore implements ModInitializer {
 
     public static final String MOD_ID = "raa_core";
     public static final String MOD_NAME = "RAA: Core";
-    public static final String MOD_VERSION = "1.1.0";
+    public static final String MOD_VERSION = "1.2.0";
 
     public static Map<String, RAAAddon> RAA_ADDON_LIST = new HashMap<>();
 
@@ -25,7 +25,7 @@ public class RAACore implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        log(Level.INFO, String.format("You're now running %s v%s for %s", MOD_NAME, MOD_VERSION, "1.17"));
+        log(Level.INFO, String.format("You're now running RAA: Core v%s for 1.17.1", MOD_VERSION));
 
         AutoConfig.register(RAACoreConfig.class, JanksonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(RAACoreConfig.class).getConfig();

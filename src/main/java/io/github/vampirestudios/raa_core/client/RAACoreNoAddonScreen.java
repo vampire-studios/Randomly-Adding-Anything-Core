@@ -26,7 +26,7 @@ public class RAACoreNoAddonScreen extends Screen {
         this.addDrawable(new ButtonWidget(
                 (this.width/2 -10- textRenderer.getWidth(string)/2),
                 this.height/2 + 40, textRenderer.getWidth(string) + 20, 20, string, press -> {
-            this.client.openScreen(new TitleScreen());
+            this.client.setScreen(new TitleScreen());
         }));
 
         string = new TranslatableText("text.raa_core.no_addon_screen.message.quit_game");
