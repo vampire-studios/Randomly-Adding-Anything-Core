@@ -1,9 +1,9 @@
 {
-    "text.raa_core.no_addon_screen.title": "No RAA Addon Loaded!",
-    "text.raa_core.no_addon_screen.message.1": "No RAA Addon has been found!",
-    "text.raa_core.no_addon_screen.message.2": "RAA-Core alone doesn't add any content to the game.",
-    "text.raa_core.no_addon_screen.message.3": "You can find a list of available addons at:",
-    "text.raa_core.no_addon_screen.message.open_addon_list": "Open Addon List",
-    "text.raa_core.no_addon_screen.message.continue": "Continue",
-    "text.raa_core.no_addon_screen.message.quit_game": "Quit Game"
+    "text.raa_core.no_addon_screen.title": "לא טעון תוסף של RAA!",
+    "text.raa_core.no_addon_screen.message.1": "לא נמצא תוסף של RAA!",
+    "text.raa_core.no_addon_screen.message.2": "ליבת RAA לבדה לא מוסיפה תוכן למשחק.",
+    "text.raa_core.no_addon_screen.message.3": "תוכלו למצוא רשימה של תוספים תואמים ב:",
+    "text.raa_core.no_addon_screen.message.open_addon_list": "פתח רשימת התוספים",
+    "text.raa_core.no_addon_screen.message.continue": "המשך",
+    "text.raa_core.no_addon_screen.message.quit_game": "יציאה"
 }
