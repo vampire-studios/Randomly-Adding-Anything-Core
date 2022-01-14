@@ -1,27 +1,26 @@
 package io.github.vampirestudios.raa_core.api.name_generation;
 
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
-
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Tuple;
 
 public interface NameGenerator {
     String generate();
 
-    default Pair<String, Identifier> generateUnique(Collection<Identifier> presentIds, final String modId) {
+    default Tuple<String, ResourceLocation> generateUnique(Collection<ResourceLocation> presentIds, final String modId) {
         int loops = 0;
-        Identifier identifier;
+        ResourceLocation identifier;
         String name;
         do {
             name = generate();
-            identifier = new Identifier(modId, asId(name));
+            identifier = new ResourceLocation(modId, asId(name));
             if (++loops > 50) {
                 throw new RuntimeException("Couldn't find a new name anymore.");
             }
         } while (presentIds.contains(identifier));
-        return new Pair<>(name, identifier);
+        return new Tuple<>(name, identifier);
     }
 
     Map<String, String> getSpecialCharactersMap();

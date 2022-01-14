@@ -1,16 +1,16 @@
 package io.github.vampirestudios.raa_core.api.name_generation;
 
 import com.ibm.icu.text.MessageFormat;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public interface GeneratedItemName {
     
-    default Text generateName(String translationKey, Object[] args) {
-        Text translatableText = new TranslatableText(translationKey);
+    default Component generateName(String translationKey, Object[] args) {
+        Component translatableText = new TranslatableComponent(translationKey);
         MessageFormat messageFormat = new MessageFormat(translatableText.getString());
-        return new LiteralText(messageFormat.format(args));
+        return new TextComponent(messageFormat.format(args));
     }
 
 }

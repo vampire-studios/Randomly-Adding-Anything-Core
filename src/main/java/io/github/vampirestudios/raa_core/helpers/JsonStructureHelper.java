@@ -2,31 +2,30 @@ package io.github.vampirestudios.raa_core.helpers;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.math.Vec3i;
-
 import java.util.*;
+import net.minecraft.core.Vec3i;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 
 public class JsonStructureHelper {
 
     public StructureValues loadStructure(JsonObject structureJson) {
 //        System.out.println("Idk: " + JsonHelper.getString(structureJson, "structureName", "test"));
         StructureValues structure = new StructureValues();
-        structure.setName(JsonHelper.getString(structureJson, "structureName", "test"));
+        structure.setName(GsonHelper.getAsString(structureJson, "structureName", "test"));
 
-        if (JsonHelper.hasArray(structureJson, "nbt")) {
+        if (GsonHelper.isArrayNode(structureJson, "nbt")) {
 //            System.out.println("Old structure file! Will still load it.");
-            JsonArray nbtArray = JsonHelper.getArray(structureJson, "nbt");
+            JsonArray nbtArray = GsonHelper.getAsJsonArray(structureJson, "nbt");
             JsonObject structureJsonObject = nbtArray.get(0).getAsJsonObject();
-            JsonArray array = JsonHelper.getArray(structureJsonObject, "value");
+            JsonArray array = GsonHelper.getAsJsonArray(structureJsonObject, "value");
             array.forEach(jsonElement -> {
                 JsonObject jsonObject = jsonElement.getAsJsonObject();
-                String name = JsonHelper.getString(jsonObject, "name");
-                JsonObject valueArray = JsonHelper.getObject(jsonObject, "value");
+                String name = GsonHelper.getAsString(jsonObject, "name");
+                JsonObject valueArray = GsonHelper.getAsJsonObject(jsonObject, "value");
 
                 if (name.equals("size")) {
-                    JsonArray list = JsonHelper.getArray(valueArray, "list");
+                    JsonArray list = GsonHelper.getAsJsonArray(valueArray, "list");
                     List<Integer> size = new ArrayList<>();
                     size.add(list.get(0).getAsJsonPrimitive().getAsInt());
                     size.add(list.get(1).getAsJsonPrimitive().getAsInt());
@@ -37,19 +36,19 @@ public class JsonStructureHelper {
                 if (name.equals("entities")) structure.setEntities();
 
                 if (name.equals("blocks")) {
-                    JsonArray list = JsonHelper.getArray(valueArray, "list");
+                    JsonArray list = GsonHelper.getAsJsonArray(valueArray, "list");
                     list.forEach(jsonElement1 -> {
                         JsonArray blockProperties = jsonElement1.getAsJsonArray();
                         blockProperties.forEach(jsonElement2 -> {
                             JsonObject blockProperty = jsonElement2.getAsJsonObject();
-                            String propertyName = JsonHelper.getString(blockProperty, "name");
+                            String propertyName = GsonHelper.getAsString(blockProperty, "name");
                             if (propertyName.equals("state")) {
-                                int state = JsonHelper.getInt(blockProperty, "value");
+                                int state = GsonHelper.getAsInt(blockProperty, "value");
                                 structure.setBlockStates(state);
                             }
                             if (propertyName.equals("pos")) {
-                                JsonObject valueObject = JsonHelper.getObject(blockProperty, "value");
-                                JsonArray pos = JsonHelper.getArray(valueObject, "list");
+                                JsonObject valueObject = GsonHelper.getAsJsonObject(blockProperty, "value");
+                                JsonArray pos = GsonHelper.getAsJsonArray(valueObject, "list");
                                 List<Integer> posArray = new ArrayList<>();
                                 posArray.add(pos.get(0).getAsJsonPrimitive().getAsInt());
                                 posArray.add(pos.get(1).getAsJsonPrimitive().getAsInt());
@@ -61,24 +60,24 @@ public class JsonStructureHelper {
                 }
 
                 if (name.equals("palette")) {
-                    JsonArray list = JsonHelper.getArray(valueArray, "list");
+                    JsonArray list = GsonHelper.getAsJsonArray(valueArray, "list");
                     list.forEach(jsonElement1 -> {
                         Map<String, String> blockPropertyMap = new HashMap<>();
                         JsonArray paletteProperties = jsonElement1.getAsJsonArray();
                         paletteProperties.forEach(jsonElement2 -> {
                             JsonObject paletteProperty = jsonElement2.getAsJsonObject();
-                            String propertyName = JsonHelper.getString(paletteProperty, "name");
+                            String propertyName = GsonHelper.getAsString(paletteProperty, "name");
                             if (propertyName.equals("Name")) {
                                 structure.setBlockProperties(blockPropertyMap);
-                                String blockId = JsonHelper.getString(paletteProperty, "value");
+                                String blockId = GsonHelper.getAsString(paletteProperty, "value");
                                 structure.setBlockTypes(blockId);
                             }
                             if (propertyName.equals("Properties")) {
-                                JsonArray properties = JsonHelper.getArray(paletteProperty, "value");
+                                JsonArray properties = GsonHelper.getAsJsonArray(paletteProperty, "value");
                                 properties.forEach(jsonElement3 -> {
                                     JsonObject blockProperties = jsonElement3.getAsJsonObject();
-                                    String blockPropertyName = JsonHelper.getString(blockProperties, "name");
-                                    String propertyValue = JsonHelper.getString(blockProperties, "value");
+                                    String blockPropertyName = GsonHelper.getAsString(blockProperties, "name");
+                                    String propertyValue = GsonHelper.getAsString(blockProperties, "value");
                                     blockPropertyMap.put(blockPropertyName, propertyValue);
                                 });
                             }
@@ -88,8 +87,8 @@ public class JsonStructureHelper {
             });
         }
 
-        if (JsonHelper.hasArray(structureJson, "blocks")) {
-            JsonArray blocksArray = JsonHelper.getArray(structureJson, "blocks");
+        if (GsonHelper.isArrayNode(structureJson, "blocks")) {
+            JsonArray blocksArray = GsonHelper.getAsJsonArray(structureJson, "blocks");
             blocksArray.forEach(jsonElement -> {
 //                System.out.println("State: " + jsonElement.getAsJsonObject().get("state").getAsInt());
                 structure.setBlockStates(jsonElement.getAsJsonObject().get("state").getAsInt());
@@ -102,10 +101,10 @@ public class JsonStructureHelper {
             });
         }
 
-        if (JsonHelper.hasArray(structureJson, "palette")) {
-            JsonArray blocksArray = JsonHelper.getArray(structureJson, "palette");
+        if (GsonHelper.isArrayNode(structureJson, "palette")) {
+            JsonArray blocksArray = GsonHelper.getAsJsonArray(structureJson, "palette");
             blocksArray.forEach(jsonElement -> {
-                Identifier identifier = Identifier.tryParse(jsonElement.getAsJsonObject().get("name").getAsString());
+                ResourceLocation identifier = ResourceLocation.tryParse(jsonElement.getAsJsonObject().get("name").getAsString());
                 structure.setBlockTypes(Objects.requireNonNull(identifier).toString());
             });
         }

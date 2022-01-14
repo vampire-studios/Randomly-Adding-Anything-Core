@@ -2,7 +2,7 @@ package io.github.vampirestudios.raa_core;
 
 import io.github.vampirestudios.raa_core.api.RAAAddon;
 import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
@@ -16,8 +16,7 @@ public class RAACore implements ModInitializer {
     public static Logger LOGGER = LogManager.getLogger();
 
     public static final String MOD_ID = "raa_core";
-    public static final String MOD_NAME = "RAA: Core";
-    public static final String MOD_VERSION = "1.2.0";
+    public static final String MOD_VERSION = "2.0.0";
 
     public static Map<String, RAAAddon> RAA_ADDON_LIST = new HashMap<>();
 
@@ -25,9 +24,9 @@ public class RAACore implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        log(Level.INFO, String.format("You're now running RAA: Core v%s for 1.17.1", MOD_VERSION));
+        log(Level.INFO, String.format("You're now running RAA: Core v%s for 1.18.1", MOD_VERSION));
 
-        AutoConfig.register(RAACoreConfig.class, JanksonConfigSerializer::new);
+        AutoConfig.register(RAACoreConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(RAACoreConfig.class).getConfig();
 
         log(Level.INFO, "RAA Addon discovery: Starting");
@@ -35,8 +34,8 @@ public class RAACore implements ModInitializer {
             RAA_ADDON_LIST.put(raaAddon.getId(), raaAddon);
             log(Level.INFO, String.format("Discovered addon : %s", raaAddon.getId()));
         });
-        log(Level.INFO, "RAA Addon discovery: Done");
-        log(Level.INFO, "RAA Addon discovered: " + RAA_ADDON_LIST.size());
+        log(Level.INFO, "RAA Addon Discovery: Done");
+        log(Level.INFO, "RAA Addon Discovered: " + RAA_ADDON_LIST.size());
 
         Map<String, RAAAddon> loadOrder = new HashMap<>();
 

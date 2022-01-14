@@ -2,42 +2,39 @@
   "schemaVersion": 1,
   "id": "raa_core",
   "version": "${version}",
-
   "name": "RAA: Core",
   "description": "This is the core mod for all RAA mods. It's required for all of them",
   "authors": [
-    "Vampire Studios"
+	"Vampire Studios"
   ],
   "contact": {
-    "homepage": "https://vampirestudios.netlify.com/",
-    "sources": "https://github.com/vampire-studios/Randomly-Adding-Anything-Core"
+	"homepage": "https://vampirestudios.netlify.com/",
+	"sources": "https://github.com/vampire-studios/Randomly-Adding-Anything-Core"
   },
-
   "license": "MIT",
   "icon": "assets/raa_core/icon.png",
-
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "io.github.vampirestudios.raa_core.RAACore"
-    ],
-    "client": [
-      "io.github.vampirestudios.raa_core.RAACoreClient"
-    ]
+	"main": [
+	  "io.github.vampirestudios.raa_core.RAACore"
+	],
+	"client": [
+	  "io.github.vampirestudios.raa_core.RAACoreClient"
+	]
   },
   "mixins": [
-    "raa_core.mixins.json"
+	"raa_core.mixins.json"
   ],
-
   "depends": {
-    "fabricloader": ">=0.7.4",
-    "fabric": "*"
+	"fabricloader": ">=0.12.12",
+	"fabric": "*",
+	"java": ">=16",
+	"minecraft": "1.18.x"
   },
-
   "custom": {
-    "modupdater": {
-        "strategy": "curseforge",
-        "projectID": 341464
-    }
+	"modupdater": {
+	  "strategy": "curseforge",
+	  "projectID": 341464
+	}
   }
 }

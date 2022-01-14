@@ -19,14 +19,14 @@ public class RAACoreClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        log(Level.INFO, String.format("You're now running RAA: Core - Client v%s for 1.17.1", MOD_VERSION));
+        log(Level.INFO, String.format("You're now running RAA: Core - Client v%s for 1.18.1", MOD_VERSION));
         log(Level.INFO, "RAA Client Addon discovery: Starting");
         FabricLoader.getInstance().getEntrypoints("raa:addon_client", RAAAddonClient.class).forEach(raaAddon -> {
             RAA_ADDON_CLIENT_LIST.put(raaAddon.getId(), raaAddon);
             log(Level.INFO, String.format("Discovered Client Addon : %s", raaAddon.getId()));
         });
-        log(Level.INFO, "RAA Client Addon discovery: Done");
-        log(Level.INFO, "RAA Client Addon discovered: " + RAA_ADDON_CLIENT_LIST.size());
+        log(Level.INFO, "RAA Client Addon Discovery: Done");
+        log(Level.INFO, "RAA Client Addon Discovered: " + RAA_ADDON_CLIENT_LIST.size());
 
         Map<String, RAAAddonClient> loadOrder = new HashMap<>();
 
@@ -40,8 +40,7 @@ public class RAACoreClient implements ClientModInitializer {
             }
             List<Boolean> booleans = new ArrayList<>();
             for (String addonId : shouldLoadAfterList) {
-                if (loadOrder.containsKey(addonId)) booleans.add(true);
-                booleans.add(false);
+                booleans.add(loadOrder.containsKey(addonId));
             }
 
             boolean theBoolean = true;
@@ -65,8 +64,7 @@ public class RAACoreClient implements ClientModInitializer {
 
                 List<Boolean> booleans = new ArrayList<>();
                 for (String addonId : shouldLoadAfterList) {
-                    if (loadOrder.containsKey(addonId)) booleans.add(true);
-                    booleans.add(false);
+                    booleans.add(loadOrder.containsKey(addonId));
                 }
 
                 boolean theBoolean = true;

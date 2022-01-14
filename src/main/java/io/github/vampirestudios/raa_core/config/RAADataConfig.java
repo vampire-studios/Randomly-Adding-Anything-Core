@@ -6,8 +6,6 @@ import com.google.gson.JsonObject;
 import io.github.vampirestudios.raa_core.RAACore;
 import io.github.vampirestudios.raa_core.helpers.GsonHelper;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.util.JsonHelper;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -43,7 +41,7 @@ public abstract class RAADataConfig {
     public void load() {
         try {
             JsonObject json = GsonHelper.getGson().fromJson(new FileReader(configFile), JsonObject.class);
-            int version = JsonHelper.getInt(json, "configVersion", -1);
+            int version = net.minecraft.util.GsonHelper.getAsInt(json, "configVersion", -1);
             for (int i = version; i < CURRENT_VERSION; i++) {
                 RAACore.LOGGER.info("Upgrading RAA data file \"" + configFile + "\" to version " + (i + 1) + ".");
                 json = upgrade(json, i);

@@ -7,19 +7,17 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-
 import java.io.IOException;
+import net.minecraft.resources.ResourceLocation;
 
 public class GsonHelper {
     private static final Gson GSON;
 
     static {
         GSON = new GsonBuilder()
-                .registerTypeAdapter(Identifier.class, new TypeAdapter<Identifier>() {
+                .registerTypeAdapter(ResourceLocation.class, new TypeAdapter<ResourceLocation>() {
                     @Override
-                    public void write(JsonWriter out, Identifier value) throws IOException {
+                    public void write(JsonWriter out, ResourceLocation value) throws IOException {
                         if (value == null)
                             out.nullValue();
                         else
@@ -27,13 +25,13 @@ public class GsonHelper {
                     }
 
                     @Override
-                    public Identifier read(JsonReader in) throws IOException {
+                    public ResourceLocation read(JsonReader in) throws IOException {
                         JsonToken jsonToken = in.peek();
                         if (jsonToken == JsonToken.NULL) {
                             in.nextNull();
                             return null;
                         } else {
-                            return new Identifier(in.nextString());
+                            return new ResourceLocation(in.nextString());
                         }
                     }
                 })
@@ -46,9 +44,9 @@ public class GsonHelper {
         return GSON;
     }
 
-    public static Identifier idFromOldStyle(JsonObject jsonObject) {
+    public static ResourceLocation idFromOldStyle(JsonObject jsonObject) {
         if (jsonObject.has("namespace"))
-            return new Identifier(JsonHelper.getString(jsonObject, "namespace"), JsonHelper.getString(jsonObject, "path"));
-        return new Identifier(JsonHelper.getString(jsonObject, "field_13353"), JsonHelper.getString(jsonObject, "field_13355"));
+            return new ResourceLocation(net.minecraft.util.GsonHelper.getAsString(jsonObject, "namespace"), net.minecraft.util.GsonHelper.getAsString(jsonObject, "path"));
+        return new ResourceLocation(net.minecraft.util.GsonHelper.getAsString(jsonObject, "field_13353"), net.minecraft.util.GsonHelper.getAsString(jsonObject, "field_13355"));
     }
 }
