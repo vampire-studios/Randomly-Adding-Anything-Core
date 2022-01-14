@@ -62,30 +62,19 @@ processResources {
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
-	it.options.encoding = "UTF-8"
-	it.options.release = 16
-}
-
 java {
 	withSourcesJar()
+	withJavadocJar()
 }
 
-jar {
-	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
-	}
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
 }
 
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
+			from components.java
 		}
 	}
 	repositories {
@@ -102,7 +91,7 @@ curseforge {
 		releaseType = "release"
 		changelog = project.changelog
 		gameVersionStrings.clear()
-		gameVersionStrings.add("1.17")
+		gameVersionStrings.add("1.18.1")
 		gameVersionStrings.add("Fabric")
 		mainArtifact(file("build/libs/${archivesBaseName}-${version}.jar")) {
 			displayName = "[" + project.minecraft_version + "] RAA Core " + project.mod_version
