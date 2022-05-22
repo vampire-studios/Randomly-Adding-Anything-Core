@@ -3,15 +3,15 @@
   "id": "raa_core",
   "version": "${version}",
   "name": "RAA: Core",
-  "description": "This is the core mod for all RAA mods. It's required for all of them",
+  "description": "The core mod for all the Randomly Adding Anything mods.",
   "authors": [
 	"Vampire Studios"
   ],
   "contact": {
-	"homepage": "https://vampirestudios.netlify.com/",
-	"sources": "https://github.com/vampire-studios/Randomly-Adding-Anything-Core"
+	"sources": "https://github.com/vampire-studios/Randomly-Adding-Anything-Core",
+	"issues": "https://github.com/vampire-studios/Randomly-Adding-Anything-Core/issues"
   },
-  "license": "MIT",
+  "license": "CC0-1.0",
   "icon": "assets/raa_core/icon.png",
   "environment": "*",
   "entrypoints": {
@@ -26,15 +26,24 @@
 	"raa_core.mixins.json"
   ],
   "depends": {
-	"fabricloader": ">=0.12.12",
+	"fabricloader": ">=0.14.6",
 	"fabric": "*",
-	"java": ">=16",
+	"java": ">=17",
 	"minecraft": "1.18.x"
   },
   "custom": {
-	"modupdater": {
-	  "strategy": "curseforge",
-	  "projectID": 341464
+	"modmenu": {
+	  "links": {
+		"modmenu.discord": "https://discord.gg/63hmSTxyDA"
+	  },
+	  "badges": [
+		"library"
+	  ],
+	  "parent": {
+		"id": "vampire-studios-mods",
+		"name": "Vampire Studios' Mods",
+		"description": "All the mods from Vampire Studios"
+	  }
 	}
   }
 }

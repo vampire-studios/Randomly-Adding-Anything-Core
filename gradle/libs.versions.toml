@@ -1,0 +1,23 @@
+[versions]
+minecraft = "1.18.2"
+quilt_mappings = "1.18.2+build.23"
+quilt_loader = "0.16.0-beta.16"
+parchment = "2022.03.13"
+
+fabric-api = "0.53.0+1.18.2"
+
+vampirelib = "4.9.0+build.1-1.18.2"
+
+[libraries]
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "quilt_mappings" }
+quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loader" }
+
+fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api" }
+
+vampirelib = { module = "io.github.vampirestudios:VampireLib-Fabric", version.ref = "vampirelib" }
+
+[plugins]
+quilt_loom = { id = "org.quiltmc.loom", version = "0.12.+" }
+loom_quiltflower = { id = "io.github.juuxel.loom-quiltflower", version = "1.7.+" }
+mappings_loom = { id = "org.quiltmc.quilt-mappings-on-loom", version = "4.+" }

@@ -1,6 +1,6 @@
 package io.github.vampirestudios.raa_core.api.data;
 
-import com.swordglowsblue.artifice.api.ArtificeResourcePack;
+import io.github.vampirestudios.artifice.api.ArtificeResourcePack;
 import io.github.vampirestudios.raa_core.RAACore;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.core.MappedRegistry;
