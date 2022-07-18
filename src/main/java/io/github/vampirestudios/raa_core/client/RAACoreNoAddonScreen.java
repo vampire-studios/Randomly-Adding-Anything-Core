@@ -8,20 +8,19 @@ import net.minecraft.client.gui.components.PlainTextButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 public class RAACoreNoAddonScreen extends Screen {
-    private final Component OPEN_ADDON_LIST = new TranslatableComponent("text.raa_core.no_addon_screen.message.open_addon_list").withStyle(ChatFormatting.BOLD, ChatFormatting.BLUE);
-    private final Component MESSAGE_1 = new TranslatableComponent("text.raa_core.no_addon_screen.message.1").withStyle(ChatFormatting.BOLD, ChatFormatting.RED);
-    private final Component MESSAGE_2 = new TranslatableComponent("text.raa_core.no_addon_screen.message.2").withStyle(ChatFormatting.GRAY);
-    private final Component MESSAGE_3 = new TranslatableComponent("text.raa_core.no_addon_screen.message.3").withStyle(ChatFormatting.GRAY);
+    private final Component OPEN_ADDON_LIST = Component.translatable("text.raa_core.no_addon_screen.message.open_addon_list").withStyle(ChatFormatting.BOLD, ChatFormatting.BLUE);
+    private final Component MESSAGE_1 = Component.translatable("text.raa_core.no_addon_screen.message.1").withStyle(ChatFormatting.BOLD, ChatFormatting.RED);
+    private final Component MESSAGE_2 = Component.translatable("text.raa_core.no_addon_screen.message.2").withStyle(ChatFormatting.GRAY);
+    private final Component MESSAGE_3 = Component.translatable("text.raa_core.no_addon_screen.message.3").withStyle(ChatFormatting.GRAY);
     private final String ADDONS_LIST = "https://github.com/vampire-studios/Randomly-Adding-Anything-Core/wiki/Official-Addon-list";
 
     public RAACoreNoAddonScreen() {
-        super(new TranslatableComponent("text.raa_core.no_addon_screen.title").withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
+        super(Component.translatable("text.raa_core.no_addon_screen.title").withStyle(ChatFormatting.BOLD, ChatFormatting.RED));
     }
 
     @Override
@@ -40,7 +39,7 @@ public class RAACoreNoAddonScreen extends Screen {
     }
 
     private void addButton(String text, int xOffset, Button.OnPress onPress) {
-        Component string = new TranslatableComponent(text);
+        Component string = Component.translatable(text);
         this.addRenderableWidget(new Button(
                 (this.width / 2 - 10 - font.width(string) / 2) - xOffset,
                 this.height - 25,

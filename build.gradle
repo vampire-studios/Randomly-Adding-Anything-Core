@@ -2,8 +2,6 @@ plugins {
 	id 'maven-publish'
 	id "com.modrinth.minotaur" version "2.+"
 	alias(libs.plugins.quilt.loom)
-	alias(libs.plugins.loom.quiltflower)
-	alias(libs.plugins.mappings.loom)
 }
 
 repositories {
@@ -13,19 +11,21 @@ repositories {
 	maven { url = "https://maven.terraformersmc.com/" }
 	maven { url = "https://maven.quiltmc.org/repository/" }
 	maven { url = "https://maven.parchmentmc.org" }
+	maven { url = "https://jitpack.io" }
+	maven { url = "https://mvn.devos.one/snapshots/" }
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version + "+" + "build." + project.build_number + "-" + libs.versions.minecraft.get()
+version = "${libs.versions.version.get()}+build.${libs.versions.build.get()}-${libs.versions.minecraft.get()}"
 group = project.maven_group
 
 dependencies {
 	minecraft libs.minecraft
 	mappings loom.layered {
 		it.addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:v2"))
-		it.parchment("org.parchmentmc.data:parchment-1.18.2:2022.03.13@zip")
+		it.parchment("org.parchmentmc.data:parchment-1.18.2:2022.07.10@zip")
 		it.officialMojangMappings {
 			setNameSyntheticMembers(false)
 		}
@@ -33,16 +33,12 @@ dependencies {
 
 	modImplementation libs.quilt.loader
 
-	modImplementation (libs.fabric.api) {
+	modImplementation (libs.bundles.qsl) {
 		force = true
 	}
 
-	modImplementation (libs.vampirelib) {
-		exclude group: "net.fabricmc.fabric-api"
-	}
-	include (libs.vampirelib) {
-		exclude group: "net.fabricmc.fabric-api"
-	}
+	modImplementation(libs.vampirelib)
+	include(libs.vampirelib)
 }
 
 processResources {
@@ -95,7 +91,8 @@ modrinth {
 	versionNumber = project.version
 	versionType = "beta"
 	uploadFile = remapJar
-	gameVersions = ["1.18.2"]
+	gameVersions = [libs.versions.minecraft.get()]
+	loaders = ["quilt"]
 	dependencies {
 		required.project "P7dR8mSH"
 	}
