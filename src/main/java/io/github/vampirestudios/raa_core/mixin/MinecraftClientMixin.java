@@ -19,7 +19,7 @@ public abstract class MinecraftClientMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void openAddonWarningScreen(GameConfig args, CallbackInfo ci) {
-        if (RAACore.RAA_ADDON_LIST.size() == 0 && RAACoreClient.RAA_ADDON_CLIENT_LIST.size() == 0) {
+        if (RAACore.RAA_ADDON_LIST.size() == 0 && RAACoreClient.RAA_ADDON_CLIENT_LIST.size() == 0 && !RAACore.CONFIG.shownNoAddonsScreen) {
             this.setScreen(new RAACoreNoAddonScreen());
         }
     }

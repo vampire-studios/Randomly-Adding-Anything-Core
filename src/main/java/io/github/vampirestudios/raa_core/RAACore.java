@@ -17,7 +17,7 @@ public class RAACore implements ModInitializer {
     public static Logger LOGGER = LogManager.getLogger();
 
     public static final String MOD_ID = "raa_core";
-    public static final String MOD_VERSION = "2.4.0";
+    public static final String MOD_VERSION = "2.5.0+build.1";
 
     public static Map<String, RAAAddon> RAA_ADDON_LIST = new HashMap<>();
 

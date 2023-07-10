@@ -5,44 +5,47 @@
   "name": "RAA: Core",
   "description": "The core mod for all the Randomly Adding Anything mods.",
   "authors": [
-	"Vampire Studios"
+    "Vampire Studios"
   ],
   "contact": {
-	"sources": "https://github.com/vampire-studios/Randomly-Adding-Anything-Core",
-	"issues": "https://github.com/vampire-studios/Randomly-Adding-Anything-Core/issues"
+    "sources": "https://github.com/vampire-studios/Randomly-Adding-Anything-Core",
+    "issues": "https://github.com/vampire-studios/Randomly-Adding-Anything-Core/issues"
   },
   "license": "CC0-1.0",
   "icon": "assets/raa_core/icon.png",
   "environment": "*",
   "entrypoints": {
-	"main": [
-	  "io.github.vampirestudios.raa_core.RAACore"
-	],
-	"client": [
-	  "io.github.vampirestudios.raa_core.RAACoreClient"
-	]
+    "main": [
+      "io.github.vampirestudios.raa_core.RAACore"
+    ],
+    "client": [
+      "io.github.vampirestudios.raa_core.RAACoreClient"
+    ],
+    "modmenu": [
+      "io.github.vampirestudios.raa_core.ModMenuCompat"
+    ]
   },
   "mixins": [
-	"raa_core.mixins.json"
+    "raa_core.mixins.json"
   ],
   "depends": {
-	"fabric": "*",
-	"java": ">=17",
-	"minecraft": "1.19.x"
+    "fabric": "*",
+    "java": ">=17",
+    "minecraft": "1.19.4"
   },
   "custom": {
-	"modmenu": {
-	  "links": {
-		"modmenu.discord": "https://discord.gg/63hmSTxyDA"
-	  },
-	  "badges": [
-		"library"
-	  ],
-	  "parent": {
-		"id": "vampire-studios-mods",
-		"name": "Vampire Studios' Mods",
-		"description": "All the mods from Vampire Studios"
-	  }
-	}
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/63hmSTxyDA"
+      },
+      "badges": [
+        "library"
+      ],
+      "parent": {
+        "id": "vampire-studios-mods",
+        "name": "Vampire Studios' Mods",
+        "description": "All the mods from Vampire Studios"
+      }
+    }
   }
 }
