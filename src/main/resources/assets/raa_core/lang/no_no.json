@@ -7,5 +7,5 @@
     "text.raa_core.no_addon_screen.message.continue": "Fortsett",
     "text.raa_core.no_addon_screen.message.quit_game": "Avslutt spill",
     "raa_core:raa-config": "RAA Konfigurasjonsskjerm",
-    "raa_core:raa_config/naming_language": "Navn Genereringsspråk"
+    "text.autoconfig.raa_config.option.language": "Name Generation Language"
 }
