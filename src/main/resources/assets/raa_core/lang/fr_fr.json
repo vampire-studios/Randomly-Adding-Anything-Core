@@ -6,6 +6,6 @@
     "text.raa_core.no_addon_screen.message.open_addon_list": "Ouvrir la liste des addons",
     "text.raa_core.no_addon_screen.message.continue": "Continuer",
     "text.raa_core.no_addon_screen.message.quit_game": "Quitter le jeu",
-    "raa_core:raa-config": "RAA Config Screen",
-    "text.autoconfig.raa_config.option.language": "Name Generation Language"
+    "raa_core:raa-config": "Configuration de RAA",
+    "text.autoconfig.raa_config.option.language": "Langue de génération des noms"
 }
