@@ -2,10 +2,10 @@
     "text.raa_core.no_addon_screen.title": "Ingen RAA Addon er lastet inn!",
     "text.raa_core.no_addon_screen.message.1": "Ingen RAA Addon er funnet!",
     "text.raa_core.no_addon_screen.message.2": "RAA-Core alene legger ikke til noe nytt.",
-    "text.raa_core.no_addon_screen.message.3": "Du kan finne en liste over addons her:",
+    "text.raa_core.no_addon_screen.message.3": "Du kan finne en liste over addons",
     "text.raa_core.no_addon_screen.message.open_addon_list": "her",
     "text.raa_core.no_addon_screen.message.continue": "Fortsett",
     "text.raa_core.no_addon_screen.message.quit_game": "Avslutt spill",
     "raa_core:raa-config": "RAA Konfigurasjonsskjerm",
-    "text.autoconfig.raa_config.option.language": "Name Generation Language"
+    "text.autoconfig.raa_config.option.language": "Navn Genereringsspråk"
 }
