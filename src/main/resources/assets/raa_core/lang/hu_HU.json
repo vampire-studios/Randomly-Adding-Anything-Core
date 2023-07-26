@@ -1,9 +1,0 @@
-{
-    "text.raa_core.no_addon_screen.title": "Egyetlen RAA Bővítmény sem lett betöltve!",
-    "text.raa_core.no_addon_screen.message.1": "Nem találhatók RAA Bővítmények!",
-    "text.raa_core.no_addon_screen.message.2": "RAA-Core nem ad hozzá semmit a játékhoz egymagában.",
-    "text.raa_core.no_addon_screen.message.3": "Az elérhető Bővítmények listáját megtalálod itt:",
-    "text.raa_core.no_addon_screen.message.open_addon_list": "Bővítmény lista megnyitása",
-    "text.raa_core.no_addon_screen.message.continue": "Tovább",
-    "text.raa_core.no_addon_screen.message.quit_game": "Kilépés a játékból"
-}
