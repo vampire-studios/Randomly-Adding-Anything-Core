@@ -2,7 +2,7 @@
     "text.raa_core.no_addon_screen.title": "没有RAA扩展被加载！",
     "text.raa_core.no_addon_screen.message.1": "没有找到任何RAA扩展！",
     "text.raa_core.no_addon_screen.message.2": "RAA核心本身并不会向游戏中加入任何内容。",
-    "text.raa_core.no_addon_screen.message.3": "你可以在此处找到可用的扩展列表：",
+    "text.raa_core.no_addon_screen.message.3": "You can find a list of available addons ",
     "text.raa_core.no_addon_screen.message.open_addon_list": "打开扩展列表",
     "text.raa_core.no_addon_screen.message.continue": "继续",
     "text.raa_core.no_addon_screen.message.quit_game": "退出游戏",
