@@ -1,0 +1,11 @@
+{
+    "text.raa_core.no_addon_screen.title": "Kein RAA-Addon geladen!",
+    "text.raa_core.no_addon_screen.message.1": "Es wurde kein RAA-Addon gefunden!",
+    "text.raa_core.no_addon_screen.message.2": "RAA-Core fügt keine eigenen Inhalte zum Spiel hinzu.",
+    "text.raa_core.no_addon_screen.message.3": "You can find a list of available addons ",
+    "text.raa_core.no_addon_screen.message.open_addon_list": "Addon-Liste öffnen",
+    "text.raa_core.no_addon_screen.message.continue": "Fortsetzen",
+    "text.raa_core.no_addon_screen.message.quit_game": "Spiel beenden",
+    "raa_core:raa-config": "RAA Konfiguration",
+    "text.autoconfig.raa_config.option.language": "Sprache für generierte Namen"
+}
