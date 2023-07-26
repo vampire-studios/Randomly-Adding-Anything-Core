@@ -1,9 +1,0 @@
-{
-    "text.raa_core.no_addon_screen.title": "沒有 RAA Addon 被載入！",
-    "text.raa_core.no_addon_screen.message.1": "沒有找到任何 RAA Addon！",
-    "text.raa_core.no_addon_screen.message.2": "RAA-Core 本身不會向遊戲中添加任何內容。",
-    "text.raa_core.no_addon_screen.message.3": "你可以在這裡找到可用的 Addon 清單：",
-    "text.raa_core.no_addon_screen.message.open_addon_list": "打開 Addon 清單",
-    "text.raa_core.no_addon_screen.message.continue": "繼續",
-    "text.raa_core.no_addon_screen.message.quit_game": "退出遊戲"
-}
