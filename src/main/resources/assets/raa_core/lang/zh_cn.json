@@ -6,6 +6,6 @@
     "text.raa_core.no_addon_screen.message.open_addon_list": "打开扩展列表",
     "text.raa_core.no_addon_screen.message.continue": "继续",
     "text.raa_core.no_addon_screen.message.quit_game": "退出游戏",
-    "raa_core:raa-config": "RAA Config Screen",
-    "text.autoconfig.raa_config.option.language": "Name Generation Language"
+    "raa_core:raa-config": "RAA 配置屏幕",
+    "text.autoconfig.raa_config.option.language": "名称生成语言"
 }
