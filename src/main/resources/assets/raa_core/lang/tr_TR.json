@@ -1,0 +1,11 @@
+{
+    "text.raa_core.no_addon_screen.title": "Hiçbir RAA Eklentisi yüklenmedi!",
+    "text.raa_core.no_addon_screen.message.1": "Hiçbir RAA Eklentisi bulunmadı!",
+    "text.raa_core.no_addon_screen.message.2": "Yalnız RAA-Core oyuna yeni birşey eklemiyor.",
+    "text.raa_core.no_addon_screen.message.3": "Eklenti listesini burada bulabilirsin:",
+    "text.raa_core.no_addon_screen.message.open_addon_list": "Eklenti Listesini Aç",
+    "text.raa_core.no_addon_screen.message.continue": "Devam",
+    "text.raa_core.no_addon_screen.message.quit_game": "Oyundan Çık",
+    "raa_core:raa-config": "RAA Config Screen",
+    "raa_core:raa_config/naming_language": "Name Generation Language"
+}
