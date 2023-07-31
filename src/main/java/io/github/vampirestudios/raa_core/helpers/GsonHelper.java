@@ -8,45 +8,39 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Identifier;
 
 public class GsonHelper {
-    private static final Gson GSON;
 
-    static {
-        GSON = new GsonBuilder()
-                .registerTypeAdapter(ResourceLocation.class, new TypeAdapter<ResourceLocation>() {
-                    @Override
-                    public void write(JsonWriter out, ResourceLocation value) throws IOException {
-                        if (value == null)
-                            out.nullValue();
-                        else
-                            out.value(value.toString());
-                    }
+	public static final Gson GSON = new GsonBuilder()
+		.registerTypeAdapter(Identifier.class, new TypeAdapter<Identifier>() {
+			@Override
+			public void write(JsonWriter out, Identifier value) throws IOException {
+				if (value == null)
+					out.nullValue();
+				else
+					out.value(value.toString());
+			}
 
-                    @Override
-                    public ResourceLocation read(JsonReader in) throws IOException {
-                        JsonToken jsonToken = in.peek();
-                        if (jsonToken == JsonToken.NULL) {
-                            in.nextNull();
-                            return null;
-                        } else {
-                            return new ResourceLocation(in.nextString());
-                        }
-                    }
-                })
-                .serializeNulls()
-                .setPrettyPrinting()
-                .create();
-    }
+			@Override
+			public Identifier read(JsonReader in) throws IOException {
+				JsonToken jsonToken = in.peek();
+				if (jsonToken == JsonToken.NULL) {
+					in.nextNull();
+					return null;
+				} else {
+					return new Identifier(in.nextString());
+				}
+			}
+		})
+		.serializeNulls()
+		.setPrettyPrinting()
+		.create();
 
-    public static Gson getGson() {
-        return GSON;
-    }
+	public static Identifier idFromOldStyle(JsonObject jsonObject) {
+		if (jsonObject.has("namespace"))
+			return new Identifier(net.minecraft.util.JsonHelper.getString(jsonObject, "namespace"), net.minecraft.util.JsonHelper.getString(jsonObject, "path"));
+		return new Identifier(net.minecraft.util.JsonHelper.getString(jsonObject, "field_13353"), net.minecraft.util.JsonHelper.getString(jsonObject, "field_13355"));
+	}
 
-    public static ResourceLocation idFromOldStyle(JsonObject jsonObject) {
-        if (jsonObject.has("namespace"))
-            return new ResourceLocation(net.minecraft.util.GsonHelper.getAsString(jsonObject, "namespace"), net.minecraft.util.GsonHelper.getAsString(jsonObject, "path"));
-        return new ResourceLocation(net.minecraft.util.GsonHelper.getAsString(jsonObject, "field_13353"), net.minecraft.util.GsonHelper.getAsString(jsonObject, "field_13355"));
-    }
 }

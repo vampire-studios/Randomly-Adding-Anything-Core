@@ -1,108 +1,148 @@
 package io.github.vampirestudios.raa_core;
 
-import io.github.vampirestudios.raa_core.api.RAAAddon;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.SharedConstants;
-import org.apache.logging.log4j.Level;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.*;
+import com.google.common.base.Joiner;
+
+import io.github.vampirestudios.raa_core.api.RAAAddon;
+import io.github.vampirestudios.raa_core.config.RAAConfig;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
+import net.fabricmc.loader.api.metadata.ModDependency;
+import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.fabricmc.loader.impl.metadata.LoaderModMetadata;
+import net.minecraft.SharedConstants;
 
 public class RAACore implements ModInitializer {
 
-    public static Logger LOGGER = LogManager.getLogger();
+	public static Logger LOGGER = LogManager.getLogger();
 
-    public static final String MOD_ID = "raa_core";
-    public static final String MOD_VERSION = "2.5.0+build.1";
+	public static final String MOD_ID = "raa_core";
+	public static final String MOD_VERSION = "3.0.0+build.1";
 
-    public static Map<String, RAAAddon> RAA_ADDON_LIST = new HashMap<>();
+	public static Map<String, RAAAddon> ADDON_MAP;
+	
+	public static Joiner MOD_JOINER = Joiner.on(", ");
+	
+	public static RAAConfig CONFIG;
 
-    public static RAACoreConfig CONFIG;
+	@Override
+	public void onInitialize() {		
+		LOGGER.info(String.format("You're now running RAA: Core v%s for %s", MOD_VERSION, SharedConstants.getGameVersion().getName()));
 
-    @Override
-    public void onInitialize() {
-        log(Level.INFO, String.format("You're now running RAA: Core v%s for %s", MOD_VERSION, SharedConstants.getCurrentVersion().getName()));
+		CONFIG = new RAACoreConfig();
 
-        AutoConfig.register(RAACoreConfig.class, GsonConfigSerializer::new);
-        CONFIG = AutoConfig.getConfigHolder(RAACoreConfig.class).getConfig();
+		ADDON_MAP = discoverAddons(RAAAddon.class, "raa:addon");
+		LOGGER.info("Discovered " + ADDON_MAP.size() + " RAA addons: " + MOD_JOINER.join(ADDON_MAP.keySet()));
 
-        log(Level.INFO, "RAA Addon discovery: Starting");
-        FabricLoader.getInstance().getEntrypoints("raa:addon", RAAAddon.class).forEach(raaAddon -> {
-            RAA_ADDON_LIST.put(raaAddon.getId(), raaAddon);
-            log(Level.INFO, String.format("Discovered addon : %s", raaAddon.getId()));
-        });
-        log(Level.INFO, "RAA Addon Discovery: Done");
-        log(Level.INFO, "RAA Addon Discovered: " + RAA_ADDON_LIST.size());
+		ADDON_MAP.values().forEach(RAAAddon::onInitialize);
+	}
+	
+	private static boolean isRaaAddon(ModContainer mod, String entrypointName) {
+		boolean hasDep = false;
+		boolean hasEntrypoint = false;
+		
+		ModMetadata meta = mod.getMetadata();
+		for(ModDependency dep : meta.getDependencies()) {
+			if(dep.getKind() == ModDependency.Kind.DEPENDS && dep.getModId().equals(MOD_ID)) {
+				hasDep = true;
+			}
+		}
+		if(meta instanceof LoaderModMetadata lmeta) {
+			if(lmeta.getEntrypointKeys().contains(entrypointName)) {
+				hasEntrypoint = true;
+			}
+		}
+		return hasDep && hasEntrypoint;
+	}
+	
+	private static String getModid(ModContainer mod) {
+		return mod.getMetadata().getId();
+	}
+	
+	public static <T> HashMap<String, T> discoverAddons(Class<T> entrypointClass, String entrypointName) {
+		HashMap<String, T> addonMap = new HashMap<String, T>();
+		
+		Set<String> raaAddons = FabricLoader.getInstance().getAllMods().stream()
+			.filter(new Predicate<ModContainer>() {
+				@Override
+				public boolean test(ModContainer mod) {
+					return isRaaAddon(mod, entrypointName);
+				}
+			}).map(RAACore::getModid).collect(Collectors.toSet());
+		List<EntrypointContainer<T>> raaAddonEntrypoints =
+			FabricLoader.getInstance().getEntrypointContainers(entrypointName, entrypointClass);
 
-        Map<String, RAAAddon> loadOrder = new HashMap<>();
+		Set<ModContainer> mods = new HashSet<ModContainer>();
+		Set<ModContainer> duplicates = raaAddonEntrypoints.stream().map(EntrypointContainer::getProvider)
+			.filter(mods::add).collect(Collectors.toSet());
+		
+		if(!duplicates.isEmpty()) {
+			String s = "[" + MOD_JOINER.join(duplicates) + "]";
+			throw new RAADiscoveryException("The following mod(s) tried to register multiple addons: " + s);
+		}
 
-        Map<String, RAAAddon> remainingWithDependency = new HashMap<>();
+		int lastSatisfied = -1;
 
-        for (Map.Entry<String, RAAAddon> addonEntry : RAA_ADDON_LIST.entrySet()) {
-            List<String> shouldLoadAfterList = new ArrayList<>(Arrays.asList(addonEntry.getValue().shouldLoadAfter()));
-            if (shouldLoadAfterList.isEmpty()) {
-                loadOrder.put(addonEntry.getKey(), addonEntry.getValue());
-                continue;
-            }
-            List<Boolean> booleans = new ArrayList<>();
-            for (String addonId : shouldLoadAfterList) {
-                if (loadOrder.containsKey(addonId)) booleans.add(true);
-                booleans.add(false);
-            }
+		while(!raaAddonEntrypoints.isEmpty()) {
+			if(lastSatisfied == 0) {
+				// No addon could be satisfied during last loop, aborting
+				String[] failedModids = new String[raaAddonEntrypoints.size()];
+				for(int i = 0; i < raaAddonEntrypoints.size(); i++) {
+					failedModids[i] = getModid(raaAddonEntrypoints.get(i).getProvider());
+				}
+				String s = "[" + MOD_JOINER.join(failedModids) + "]";
+				throw new RAADiscoveryException("Failed to load the following RAA addons: " + s);
+			}
+			lastSatisfied = 0;
+			Iterator<EntrypointContainer<T>> iterator = raaAddonEntrypoints.iterator();
+			while(iterator.hasNext()) {
+				EntrypointContainer<T> addon = iterator.next();
+				boolean satisfied = true;
+				for(ModDependency dep : addon.getProvider().getMetadata().getDependencies()) {
+					if(dep.getKind() != ModDependency.Kind.DEPENDS) {
+						continue;
+					}
+					if(raaAddons.contains(dep.getModId())) {
+						continue;
+					}
+					if(!ADDON_MAP.containsKey(dep.getModId())) {
+						satisfied = false;
+						break;
+					}
+				}
+				
+				if(satisfied) {
+					lastSatisfied ++;
+					addonMap.put(getModid(addon.getProvider()), addon.getEntrypoint());
+					iterator.remove();
+				}
+			}
+		}
+		
+		return addonMap;
+	}
 
-            boolean theBoolean = true;
-            for (boolean bol : booleans) {
-                if (!bol) {
-                    theBoolean = false;
-                    break;
-                }
-            }
+	public static class RAADiscoveryException extends RuntimeException {
 
-            if (theBoolean) {
-                loadOrder.put(addonEntry.getKey(), addonEntry.getValue());
-                continue;
-            }
-            remainingWithDependency.put(addonEntry.getKey(), addonEntry.getValue());
-        }
-
-        while (!remainingWithDependency.isEmpty()) {
-            for (Map.Entry<String, RAAAddon> addonEntry : remainingWithDependency.entrySet()) {
-                List<String> shouldLoadAfterList = new ArrayList<>(Arrays.asList(addonEntry.getValue().shouldLoadAfter()));
-
-                List<Boolean> booleans = new ArrayList<>();
-                for (String addonId : shouldLoadAfterList) {
-                    if (loadOrder.containsKey(addonId)) booleans.add(true);
-                    booleans.add(false);
-                }
-
-                boolean theBoolean = true;
-                for (boolean bol : booleans) {
-                    if (!bol) {
-                        theBoolean = false;
-                        break;
-                    }
-                }
-
-                if (theBoolean) {
-                    loadOrder.put(addonEntry.getKey(), addonEntry.getValue());
-                    remainingWithDependency.remove(addonEntry.getKey(), addonEntry.getValue());
-                }
-            }
-
-        }
-
-
-        RAA_ADDON_LIST = loadOrder;
-
-        RAA_ADDON_LIST.values().forEach(RAAAddon::onInitialize);
-    }
-
-    public static void log(Level level, String message){
-        LOGGER.log(level, message);
-    }
+		private static final long serialVersionUID = 1809031118151212L;
+		
+		public RAADiscoveryException(String msg) {
+			super(msg);
+		}
+		
+	}
 
 }

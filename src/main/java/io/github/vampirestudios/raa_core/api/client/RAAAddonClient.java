@@ -1,11 +1,17 @@
 package io.github.vampirestudios.raa_core.api.client;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
+@Environment(EnvType.CLIENT)
 public interface RAAAddonClient {
-
-    void onClientInitialize();
-
-    String getId();
-
-    String[] shouldLoadAfter();
+	
+	static final String[] NO_DEPS = {};
+	
+	default String[] dependencies() {
+		return NO_DEPS;
+	}
+	
+	void onInitializeClient();
 
 }

@@ -1,6 +1,6 @@
 plugins {
 	id 'maven-publish'
-	id "com.modrinth.minotaur" version "2.+"
+	//id "com.modrinth.minotaur" version "2.+"
 	id 'fabric-loom' version '1.2-SNAPSHOT'
 	id 'io.github.juuxel.loom-quiltflower' version '1.9.+'
 }
@@ -32,11 +32,12 @@ configurations.configureEach {
 
 dependencies {
 	minecraft libs.minecraft
-	mappings loom.layered {
+	/*mappings loom.layered {
 		it.mappings("org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:intermediary-v2")
 		it.parchment("org.parchmentmc.data:parchment-1.19.4:${libs.versions.parchment.get()}@zip")
 		it.officialMojangMappings()
-	}
+	}*/
+	mappings "net.fabricmc:yarn:1.19.4+build.2:v2"
 
 	modImplementation libs.fabric.loader
 
@@ -105,7 +106,7 @@ publishing {
 	}
 }
 
-modrinth {
+/*modrinth {
 	token = modrinthToken
 	projectId = "C7pWNmLQ"
 	versionNumber = project.version
@@ -116,4 +117,4 @@ modrinth {
 	dependencies {
 		required.project "P7dR8mSH"
 	}
-}
+}*/

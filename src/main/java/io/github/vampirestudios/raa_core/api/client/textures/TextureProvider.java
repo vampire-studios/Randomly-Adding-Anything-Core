@@ -2,22 +2,31 @@ package io.github.vampirestudios.raa_core.api.client.textures;
 
 import io.github.vampirestudios.artifice.api.ArtificeResourcePack;
 import io.github.vampirestudios.raa_core.RAACore;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
-import net.minecraft.core.MappedRegistry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.SimpleRegistry;
+import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 public interface TextureProvider {
 
-    MappedRegistry<TextureProvider> TEXTURE_PROVIDER_REGISTRY = FabricRegistryBuilder.createSimple(TextureProvider.class, new ResourceLocation(RAACore.MOD_ID, "texture_provider")).buildAndRegister();
+	public static final RegistryKey<Registry<TextureProvider>> REGISTRY_KEY =
+		RegistryKey.ofRegistry(new Identifier(RAACore.MOD_ID, "texture_provider"));
+	
+	public static final SimpleRegistry<TextureProvider> REGISTRY =
+		FabricRegistryBuilder.createSimple(REGISTRY_KEY).buildAndRegister();
 
-    ResourceLocation getId();
+	Identifier getId();
 
-    String getAddonId();
+	String getAddonId();
 
-    <T> void generateJSONs(T object, ArtificeResourcePack.ClientResourcePackBuilder clientResourcePackBuilder);
+	<T> void generateJSONs(T object, ArtificeResourcePack.ClientResourcePackBuilder clientResourcePackBuilder);
 
-    default ResourceLocation makeId(String path) {
-        return new ResourceLocation(this.getAddonId(), path);
-    }
+	default Identifier makeId(String path) {
+		return new Identifier(this.getAddonId(), path);
+	}
 
 }
